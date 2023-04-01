@@ -54,6 +54,9 @@ To configure your player you need to call the method `initProject` with a valid 
 
 ```typescript
 // index.ts
+
+// The preceding imports goes here ->
+
 const videos: VideoNode[] = [
   {
     id: "1",
