@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Durabequipe/WebDoc.git"
+    "url": "git+https://github.com/Durabequipe/interactive-video-player.git"
   },
   "keywords": [],
   "author": "Shammas44",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Durabequipe/WebDoc/issues"
+    "url": "https://github.com/Durabequipe/interactive-video-player/issues"
   },
-  "homepage": "https://github.com/Durabequipe/WebDoc#readme",
+  "homepage": "https://github.com/Durabequipe/interactive-video-player#readme",
   "devDependencies": {
     "@parcel/packager-ts": "^2.8.3",
     "@parcel/transformer-typescript-types": "^2.8.3",
