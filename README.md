@@ -51,7 +51,7 @@ Then include it in your html using the `app-player` custom element tag
 
 To configure your player you need to call the method `initProject` with a valid project from `Project` type as argument
 
-```
+```typescript
 // index.ts
 const videos: VideoNode[] = [
   {
