@@ -1,18 +1,18 @@
+# Summary
+
+- [Summary](#summary)
+- [Interactive-video-player](#interactive-video-player)
+  - [Description](#description)
+  - [Installation](#installation)
+  - [Usage Exemple](#usage-exemple)
+
 # Interactive-video-player
 
 ## Description
 
-The `interactive-video-player` package is a _custom component_ using _shadowDOM_ properties embedable in html. This library include a video player allowing the user to switch between multiple video sequence based on textual choicie made by the user presented to him at each ends of a video sequence. 
+The `interactive-video-player` package is a _custom component_ using _shadowDOM_ properties embedable in html. This library include a video player allowing the user to switch between multiple video sequence based on textual choicie made by the user presented to him at each ends of a video sequence.
 
 This library allow to quickly create video games like for exemple [Super Seducer](https://store.steampowered.com/app/695920/Super_Seducer__How_to_Talk_to_Girls/) by providing a scenario object directly to the video player.
-
-## Summary
-
-- [Interactive-video-player](#interactive-video-player)
-  - [Description](#description)
-  - [Summary](#summary)
-  - [Installation](#installation)
-  - [Usage Exemple](#usage-exemple)
 
 ## Installation
 
