@@ -5,10 +5,13 @@ export enum Selectors {
   VIDEO = "video",
   POPUP_DIV = ".popup__div",
   VIDEO_SOURCE = "source",
-  SELECTED = ".selected",
+  SELECTED = "input:checked",
   TIMER_VALUE = ".timer__value",
   POPUP_BUTTONS = ".buttons",
-  QUESTION = "p"
+  QUESTION = "p",
+  BUTTON_TMP = "#choice__template",
+  BUTTON_INPUT = "input",
+  BUTTON_CONTENT = "div",
 }
 
 export enum VideoEvent {

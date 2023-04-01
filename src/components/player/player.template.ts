@@ -25,9 +25,16 @@ template.innerHTML = `
             <div class="timer">
               <div class="timer__value"></div>
             </div>
-            <p>Lorem ipsum </p>
+            <p>Your question here ...</p>
             <div class="buttons">
-              <!-- <button type="button">button</button> -->
+
+              <template id="choice__template">
+                <label>
+                  <div>button label text here...</div>
+                  <input type="radio" name="choice">
+                </label>
+              </template>
+
             </div>
           </div>
         </template>

@@ -1,9 +1,8 @@
 import { Project, VideoNode } from "../../models/project";
-import { Selectors as S,VideoEvent } from "../../models/player";
+import { Selectors as S, VideoEvent } from "../../models/player";
 import Popup from "../../utils/Popup";
 import { percentageBetween, randomInt, videoToMap } from "../../utils/helpers";
 import template from "./player.template";
-
 
 export class Player extends HTMLElement {
   private project: Project;
@@ -23,8 +22,16 @@ export class Player extends HTMLElement {
     const selectors = [S.POPUP_TMP, S.POPUP_WRAPPER];
     const tmp = this.selector(selectors[0]) as HTMLTemplateElement;
     const div = this.selector(selectors[1]) as HTMLDivElement;
-    const popup = new Popup(tmp, div, this.shadow);
+    const popup = new Popup(tmp, div);
     this.popup = popup;
+
+    // TEMPORARY CODE START =============
+    const pause = this.selector("#pause");
+    pause.addEventListener("click", () => {
+      const tag = this.getCurrentVideoTag();
+      tag.paused ? tag.play() : tag.pause();
+    });
+    // TEMPORARY CODE END ==============
   }
 
   // ==========================================================================
@@ -151,7 +158,7 @@ export class Player extends HTMLElement {
       const max = currentVideo?.interactions?.length - 1 ?? 0;
       const min = 0;
       if (max > 0) {
-        const next = (this.selector(S.SELECTED) as HTMLButtonElement)?.value;
+        const next = (this.selector(S.SELECTED) as HTMLInputElement)?.value;
         const nextVideoIndex = next
           ? next
           : currentVideo.interactions[String(randomInt(min, max))].id;
@@ -183,5 +190,4 @@ export class Player extends HTMLElement {
   }
 }
 
-customElements.define("app-player", Player);
-
+customElements.define("shammas-player", Player);

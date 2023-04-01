@@ -1,20 +1,16 @@
 import { VideoNode, Interaction } from "../models/project";
 import { Selectors as S } from "../models/player";
-const SELECTED_NO_DOT = S.SELECTED.replace(".", "");
 
 class Popup {
-  private templateClone: Node;
+  private templateClone: HTMLTemplateElement;
   private popupWrapper: HTMLDivElement;
-  private shadow: ShadowRoot;
 
   constructor(
     template: HTMLTemplateElement,
     popupWrapperElement: HTMLDivElement,
-    shadow: ShadowRoot
   ) {
-    this.templateClone = template.content.cloneNode(true);
+    this.templateClone = template.content.cloneNode(true) as HTMLTemplateElement;
     this.popupWrapper = popupWrapperElement;
-    this.shadow = shadow;
   }
 
   // ==========================================================================
@@ -35,19 +31,7 @@ class Popup {
   }
 
   // ==========================================================================
-  //  1. EVENTLISTENER MANAGEMENT
-  // ==========================================================================
-
-  private getEventListener(button: HTMLButtonElement) {
-    return () => {
-      const lastSelection = this.shadow.querySelector(S.SELECTED);
-      if (lastSelection) lastSelection.classList.remove(SELECTED_NO_DOT);
-      button.classList.add(SELECTED_NO_DOT);
-    };
-  }
-
-  // ==========================================================================
-  //  2. PRIVATE HELPERS
+  //  1. BUTTONS MANAGEMENT
   // ==========================================================================
 
   private createButtons(
@@ -60,14 +44,14 @@ class Popup {
     });
   }
 
-  private createButton(interaction: Interaction) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.innerHTML = interaction.content;
-    button.value = interaction.id;
-    button.addEventListener("click", this.getEventListener(button));
+  private createButton(interaction: Interaction,) {
+    const buttonTmp = this.templateClone.querySelector(S.BUTTON_TMP) as HTMLTemplateElement;
+    const button = buttonTmp.content.cloneNode(true) as HTMLElement
+    button.querySelector(S.BUTTON_INPUT).value = interaction.id
+    button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
     return button;
   }
+
 }
 
 export default Popup;

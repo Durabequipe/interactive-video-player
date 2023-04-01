@@ -65,6 +65,29 @@ const style = `
   align-items: center;
 }
 
+#popup__wrapper label {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background: Bisque;
+  height: 100%; 
+}
+
+#popup__wrapper label div {
+  text-align:center;
+}
+
+#popup__wrapper label:has(input:checked) {
+  background: AntiqueWhite;
+}
+
+#popup__wrapper input {
+  display:none;
+}
+
+
 /* ==========================================================================
 **   2. VIDEO
 ** ========================================================================*/
@@ -119,6 +142,10 @@ video {
   z-index: 2 !important;
 }
 
+.is-display-none {
+  display:none;
+}
+
 .FULL {
   top: 0 !important;
 }
@@ -126,6 +153,5 @@ video {
 .BOTTOM {
   top: 0 !important;
 }
-
 `
   export default style;
