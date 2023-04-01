@@ -1,0 +1,15 @@
+    {
+      "compilerOptions": {
+        "target": "es2016",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "allowJs": true,
+        "checkJs": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "removeComments": true,
+        "declaration": true
+      },
+      "include": [ "src" ],
+      "exclude": ["node_modules", "**/__tests__/*"]
+    }
