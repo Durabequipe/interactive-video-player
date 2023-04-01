@@ -36,6 +36,7 @@ import {
 Then include it in your html using the `app-player` custom element tag
 
 ```html
+// index.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
