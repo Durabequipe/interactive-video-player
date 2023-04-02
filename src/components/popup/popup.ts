@@ -4,25 +4,22 @@ import {
   VideoNode,
 } from "../../models/project";
 import { Selectors as S } from "../../models/player";
-import { percentageBetween } from "../../utils/helpers";
+import { nameComponent, percentageBetween } from "../../utils/helpers";
 import template from "./popup.template";
 
 export class Popup extends HTMLElement {
   private shadow: ShadowRoot;
-  private timer: HTMLDivElement;
-
   private templateClone: HTMLTemplateElement;
   private popupWrapper: HTMLDivElement;
+  private timer: HTMLDivElement;
 
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: "open" });
     shadow.append(template.content.cloneNode(true));
     this.shadow = shadow;
-
-    const selectors = [S.POPUP_TMP, S.POPUP_WRAPPER];
-    this.templateClone = this.selector(selectors[0]) as HTMLTemplateElement;
-    this.popupWrapper = this.selector(selectors[1]) as HTMLDivElement;
+    this.templateClone = this.selector(S.POPUP_TMP) as HTMLTemplateElement;
+    this.popupWrapper = this.selector(S.POPUP_WRAPPER) as HTMLDivElement;
   }
 
   // ==========================================================================
@@ -43,10 +40,10 @@ export class Popup extends HTMLElement {
 
   buildPopup(video: VideoNode) {
     this.popupWrapper.replaceChildren();
-
-    const template = this.templateClone.cloneNode(true) as HTMLElement;
+    const template = this.templateClone.content.cloneNode(true) as HTMLElement;
     template.querySelector(S.QUESTION).innerText = video.animation.title || "";
     const buttonsWrapper: HTMLElement = template.querySelector(S.POPUP_BUTTONS);
+    this.timer = template.querySelector(S.TIMER_VALUE) as HTMLDivElement
 
     if (video.interactions && buttonsWrapper) {
       this.createButtons(video.interactions, buttonsWrapper);
@@ -60,17 +57,13 @@ export class Popup extends HTMLElement {
     this.timer.style.width = `${width}%`;
   }
 
-  // ==========================================================================
-  //  2. PRIVATE HELPERS
-  // ==========================================================================
-
-  private togglePopup(position: InteractionPosition) {
+  togglePopup(position: InteractionPosition) {
     const cssClass = position.toUpperCase();
     this.selector(S.POPUP_DIV).classList.toggle(cssClass);
   }
 
   // ==========================================================================
-  //  1. BUTTONS MANAGEMENT
+  //  2. BUTTONS MANAGEMENT
   // ==========================================================================
 
   private createButtons(
@@ -84,7 +77,7 @@ export class Popup extends HTMLElement {
   }
 
   private createButton(interaction: Interaction) {
-    const buttonTmp = this.templateClone.querySelector(
+    const buttonTmp = this.templateClone.content.querySelector(
       S.BUTTON_TMP
     ) as HTMLTemplateElement;
     const button = buttonTmp.content.cloneNode(true) as HTMLElement;
@@ -94,4 +87,4 @@ export class Popup extends HTMLElement {
   }
 }
 
-customElements.define("shammas-popup", Popup);
+customElements.define(nameComponent("popup"), Popup);

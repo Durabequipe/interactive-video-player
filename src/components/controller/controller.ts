@@ -1,5 +1,6 @@
 import template from "./controller.template";
 import { Selectors as S } from "../../models/player";
+import { nameComponent } from "../../utils/helpers";
 
 export class Controller extends HTMLElement {
   private currentVideoTagIndex = 0;
@@ -25,4 +26,4 @@ export class Controller extends HTMLElement {
   }
 }
 
-customElements.define("shammas-controller", Controller);
+customElements.define(nameComponent("controller"), Controller);

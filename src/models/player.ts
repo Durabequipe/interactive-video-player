@@ -6,6 +6,7 @@ export enum Selectors {
   POPUP_DIV = ".popup__div",
   VIDEO_SOURCE = "source",
   SELECTED = "input:checked",
+  TIMER = ".timer",
   TIMER_VALUE = ".timer__value",
   POPUP_BUTTONS = ".buttons",
   QUESTION = "p",

@@ -1,10 +1,10 @@
 import { Project, VideoNode } from "../../models/project";
 import { Selectors as S, VideoEvent } from "../../models/player";
-import Popup from "../../utils/Popup";
-import { percentageBetween, randomInt, videoToMap } from "../../utils/helpers";
+import { nameComponent, randomInt, videoToMap } from "../../utils/helpers";
 import template from "./player.template";
 import globalStyle from "../../utils/globalStyle";
 import { Controller } from "../controller/controller";
+import { Popup } from "../popup/popup";
 
 export class Player extends HTMLElement {
   private project: Project;
@@ -25,15 +25,10 @@ export class Player extends HTMLElement {
     style.innerText = globalStyle;
     this.parentNode.appendChild(style);
 
-    this.controller = this.selector('shammas-controller') as Controller
+    this.controller = this.selector("shammas-controller") as Controller;
+    this.popup = this.selector("shammas-popup") as Popup;
 
     this.videoTags = this.selectorAll(S.VIDEO) as NodeListOf<HTMLVideoElement>;
-
-    const selectors = [S.POPUP_TMP, S.POPUP_WRAPPER];
-    const tmp = this.selector(selectors[0]) as HTMLTemplateElement;
-    const div = this.selector(selectors[1]) as HTMLDivElement;
-    const popup = new Popup(tmp, div);
-    this.popup = popup;
   }
 
   // ==========================================================================
@@ -135,7 +130,7 @@ export class Player extends HTMLElement {
         this.removeEvent(VideoEvent.TIMEUPDATE, fn);
 
         setTimeout(() => {
-          this.togglePopup(currentVideo);
+          this.popup.togglePopup(currentVideo.animation.position);
         }, 100);
       }
     };
@@ -144,10 +139,8 @@ export class Player extends HTMLElement {
 
   private getTimerListener(duration: number, eventStartTime: number) {
     return (e: any) => {
-      const timer: HTMLElement = this.shadow.querySelector(S.TIMER_VALUE);
       const time = e.target.currentTime;
-      const width = 100 - percentageBetween(time, eventStartTime, duration);
-      timer.style.width = `${width}%`;
+      this.popup.updateTimer(time, duration, eventStartTime);
     };
   }
 
@@ -168,18 +161,13 @@ export class Player extends HTMLElement {
         this.play(nextVideoIndex);
         this.switchVideoTag();
       }
-      this.togglePopup(currentVideo);
+      this.popup.togglePopup(currentVideo.animation.position);
     };
   }
 
   // ==========================================================================
   //  4. PRIVATE HELPERS
   // ==========================================================================
-
-  private togglePopup(currentVideo: VideoNode) {
-    const cssClass = currentVideo.animation.position.toUpperCase();
-    this.selector(S.POPUP_DIV).classList.toggle(cssClass);
-  }
 
   private switchVideoTag() {
     this.videoTags[0].classList.toggle(S.PRIMARY_VIDEO);
@@ -188,10 +176,10 @@ export class Player extends HTMLElement {
 
   private switchCurrentVideoTag() {
     const current = Boolean(this.currentVideoTagIndex);
-    const newValue = Number(!current)
-    this.controller.setCurrentVideoTagIndex(newValue)
+    const newValue = Number(!current);
+    this.controller.setCurrentVideoTagIndex(newValue);
     this.currentVideoTagIndex = newValue;
   }
 }
 
-customElements.define("shammas-player", Player);
+customElements.define(nameComponent("player"), Player);

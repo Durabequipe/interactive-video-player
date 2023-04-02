@@ -148,6 +148,6 @@ video {
 .BOTTOM {
   top: 0 !important;
 }
-`
-const minifyCss = minify(style)
-  export default minifyCss;
+`;
+const minifyCss = minify(style);
+export default minifyCss;

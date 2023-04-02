@@ -1,5 +1,6 @@
 import style from './player.style';
 import  '../controller/controller';
+import  '../popup/popup';
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -7,6 +8,7 @@ template.innerHTML = `
   <div class="video-player__wrapper">
 
     <div class="video__wrapper">
+
       <div>
         <video width="100%" controls id="video-1" class="is-primary-video">
           <source type="video/mp4">
@@ -19,26 +21,8 @@ template.innerHTML = `
         </video>
       </div>
 
-      <div id="popup__wrapper">
-        <template id="popup__template">
-          <div class="popup__div">
-            <div class="timer">
-              <div class="timer__value"></div>
-            </div>
-            <p>Your question here ...</p>
-            <div class="buttons">
+      <shammas-popup></shammas-popup>
 
-              <template id="choice__template">
-                <label>
-                  <div>button label text here...</div>
-                  <input type="radio" name="choice">
-                </label>
-              </template>
-
-            </div>
-          </div>
-        </template>
-      </div>
     </div>
 
     <shammas-controller></shammas-controller>
