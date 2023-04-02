@@ -1,3 +1,5 @@
+import { minify } from "../../utils/helpers";
+
 const style = `
 /* ==========================================================================
 **   0. PLAYER
@@ -98,13 +100,6 @@ video {
   left: 0;
 }
 
-.controller {
-  width: 100%;
-  height: 50px;
-  background-color: red;
-  text-align: center;
-}
-
 #video-1 {
   z-index: 1;
 }
@@ -128,7 +123,7 @@ video {
 }
 
 .timer__value {
-  background-color: red;
+  background-color: var(--primary-color);
   height: 100%;
   width:100%;
   transition: all 0.3s ease-out;
@@ -154,4 +149,5 @@ video {
   top: 0 !important;
 }
 `
-  export default style;
+const minifyCss = minify(style)
+  export default minifyCss;

@@ -28,3 +28,14 @@ export function mapBetween(
 export function percentageBetween(value: number, min: number, max: number) {
   return mapBetween(value, 0, 100, min, max);
 }
+
+export function minify(css:string) {
+    return css.replace(/([^0-9a-zA-Z\.#])\s+/g, "$1") //eslint-disable-line
+    .replace(/\s([^0-9a-zA-Z\.#]+)/g, "$1") //eslint-disable-line
+    .replace(/;}/g, "}")
+    .replace(/\/\*.*?\*\//g, "");
+}
+
+export function removeHTMLComments(html:string) {
+  return html.replace(/<!--[\s\S]*?-->/g, '');
+}

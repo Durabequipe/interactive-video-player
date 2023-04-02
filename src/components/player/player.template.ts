@@ -1,10 +1,10 @@
 import style from './player.style';
+import  '../controller/controller';
 
 const template = document.createElement("template");
 template.innerHTML = `
   <style>${style}</style>
   <div class="video-player__wrapper">
-    <button type="button" id="pause">Pause</button>
 
     <div class="video__wrapper">
       <div>
@@ -41,7 +41,7 @@ template.innerHTML = `
       </div>
     </div>
 
-    <div class="controller"> video controller here...</div>
+    <shammas-controller></shammas-controller>
   </div>
 `;
 export default template;

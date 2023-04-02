@@ -3,6 +3,8 @@ import { Selectors as S, VideoEvent } from "../../models/player";
 import Popup from "../../utils/Popup";
 import { percentageBetween, randomInt, videoToMap } from "../../utils/helpers";
 import template from "./player.template";
+import globalStyle from "../../utils/globalStyle";
+import { Controller } from "../controller/controller";
 
 export class Player extends HTMLElement {
   private project: Project;
@@ -11,12 +13,20 @@ export class Player extends HTMLElement {
   private videos: Map<string, VideoNode>;
   private shadow: ShadowRoot;
   private popup: Popup;
+  private controller: Controller;
 
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: "open" });
     shadow.append(template.content.cloneNode(true));
     this.shadow = shadow;
+
+    const style = document.createElement("style");
+    style.innerText = globalStyle;
+    this.parentNode.appendChild(style);
+
+    this.controller = this.selector('shammas-controller') as Controller
+
     this.videoTags = this.selectorAll(S.VIDEO) as NodeListOf<HTMLVideoElement>;
 
     const selectors = [S.POPUP_TMP, S.POPUP_WRAPPER];
@@ -24,14 +34,6 @@ export class Player extends HTMLElement {
     const div = this.selector(selectors[1]) as HTMLDivElement;
     const popup = new Popup(tmp, div);
     this.popup = popup;
-
-    // TEMPORARY CODE START =============
-    const pause = this.selector("#pause");
-    pause.addEventListener("click", () => {
-      const tag = this.getCurrentVideoTag();
-      tag.paused ? tag.play() : tag.pause();
-    });
-    // TEMPORARY CODE END ==============
   }
 
   // ==========================================================================
@@ -186,7 +188,9 @@ export class Player extends HTMLElement {
 
   private switchCurrentVideoTag() {
     const current = Boolean(this.currentVideoTagIndex);
-    this.currentVideoTagIndex = Number(!current);
+    const newValue = Number(!current)
+    this.controller.setCurrentVideoTagIndex(newValue)
+    this.currentVideoTagIndex = newValue;
   }
 }
 
