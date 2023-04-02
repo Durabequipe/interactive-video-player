@@ -1,21 +1,29 @@
 import { minify } from "../../utils/helpers";
 
 const style = `
-.video-player__wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.video__wrapper {
+div {
   display: flex;
   flex-direction: column;
   position: relative;
 }
 
-.video__wrapper > div {
-  display: flex;
-  flex-direction: column;
+video {
   position: relative;
+  top: 0;
+  left: 0;
+}
+
+#video-1 {
+  z-index: 1;
+}
+
+#video-2 {
+  z-index: 1;
+  position: absolute;
+}
+
+.is-primary-video {
+  z-index: 2 !important;
 }
 `;
 const minifyCss = minify(style);

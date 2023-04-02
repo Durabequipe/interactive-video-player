@@ -13,6 +13,7 @@ export enum Selectors {
   BUTTON_TMP = "#choice__template",
   BUTTON_INPUT = "input",
   BUTTON_CONTENT = "div",
+  TOGGLE = "#toggle",
 }
 
 export enum VideoEvent {

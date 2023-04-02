@@ -1,6 +1,7 @@
 import template from "./controller.template";
 import { Selectors as S } from "../../models/player";
-import { nameComponent } from "../../utils/helpers";
+import { Video } from "../video/video";
+import { COMPONENT_NAME as N } from "../../utils/helpers";
 
 export class Controller extends HTMLElement {
   private currentVideoTagIndex = 0;
@@ -13,8 +14,11 @@ export class Controller extends HTMLElement {
     const shadow = this.attachShadow({ mode: "open" });
     shadow.append(template.content.cloneNode(true));
     this.shadow = shadow;
-    this.videoTags = this.parentNode.querySelectorAll(S.VIDEO);
-    this.toggleButton = this.shadow.querySelector("#toggle");
+
+    const videoWrapper =this.parentNode.querySelector(N.VIDEO) as Video;
+    this.videoTags = videoWrapper.shadow.querySelectorAll(S.VIDEO)
+
+    this.toggleButton = this.shadow.querySelector(S.TOGGLE);
     this.toggleButton.addEventListener("click", () => {
       const tag = this.videoTags[this.currentVideoTagIndex];
       tag.paused ? tag.play() : tag.pause();
@@ -26,4 +30,4 @@ export class Controller extends HTMLElement {
   }
 }
 
-customElements.define(nameComponent("controller"), Controller);
+customElements.define(N.CONTROLLER, Controller);

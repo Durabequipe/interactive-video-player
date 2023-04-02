@@ -1,6 +1,8 @@
 import style from './player.style';
 import  '../controller/controller';
 import  '../popup/popup';
+import  '../video/video';
+import { COMPONENT_NAME as N } from '../../utils/helpers';
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -8,24 +10,11 @@ template.innerHTML = `
   <div class="video-player__wrapper">
 
     <div class="video__wrapper">
-
-      <div>
-        <video width="100%" controls id="video-1" class="is-primary-video">
-          <source type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-
-        <video width="100%" controls id="video-2">
-          <source type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      <shammas-popup></shammas-popup>
-
+      <${N.VIDEO}></${N.VIDEO}>
+      <${N.POPUP}></${N.POPUP}>
     </div>
 
-    <shammas-controller></shammas-controller>
+    <${N.CONTROLLER}></${N.CONTROLLER}>
   </div>
 `;
 export default template;

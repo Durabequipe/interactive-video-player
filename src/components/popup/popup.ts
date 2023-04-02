@@ -4,11 +4,12 @@ import {
   VideoNode,
 } from "../../models/project";
 import { Selectors as S } from "../../models/player";
-import { nameComponent, percentageBetween } from "../../utils/helpers";
+import { percentageBetween } from "../../utils/helpers";
 import template from "./popup.template";
+import { COMPONENT_NAME as N } from "../../utils/helpers";
 
 export class Popup extends HTMLElement {
-  private shadow: ShadowRoot;
+  public shadow: ShadowRoot;
   private templateClone: HTMLTemplateElement;
   private popupWrapper: HTMLDivElement;
   private timer: HTMLDivElement;
@@ -30,10 +31,6 @@ export class Popup extends HTMLElement {
     return this.shadow.querySelector(string);
   }
 
-  private selectorAll(string: string) {
-    return this.shadow.querySelectorAll(string);
-  }
-
   // ==========================================================================
   //  1. EXPOSED METHOD
   // ==========================================================================
@@ -43,7 +40,7 @@ export class Popup extends HTMLElement {
     const template = this.templateClone.content.cloneNode(true) as HTMLElement;
     template.querySelector(S.QUESTION).innerText = video.animation.title || "";
     const buttonsWrapper: HTMLElement = template.querySelector(S.POPUP_BUTTONS);
-    this.timer = template.querySelector(S.TIMER_VALUE) as HTMLDivElement
+    this.timer = template.querySelector(S.TIMER_VALUE) as HTMLDivElement;
 
     if (video.interactions && buttonsWrapper) {
       this.createButtons(video.interactions, buttonsWrapper);
@@ -87,4 +84,4 @@ export class Popup extends HTMLElement {
   }
 }
 
-customElements.define(nameComponent("popup"), Popup);
+customElements.define(N.POPUP, Popup);
