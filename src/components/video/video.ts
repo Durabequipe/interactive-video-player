@@ -1,4 +1,5 @@
 import { Project, VideoNode } from "../../models/project";
+import { PlayerEvents } from "../../models/events";
 import { Selectors as S, VideoEvent } from "../../models/player";
 import {
   randomInt,
@@ -8,6 +9,7 @@ import {
 import template from "./video.template";
 import { Controller } from "../controller/controller";
 import { Popup } from "../popup/popup";
+import { Player } from "../player/Player";
 
 export class Video extends HTMLElement {
   private currentVideoTagIndex = 0;
@@ -16,6 +18,7 @@ export class Video extends HTMLElement {
   public shadow: ShadowRoot;
   private popup: Popup;
   private controller: Controller;
+  private player: Player;
 
   constructor() {
     super();
@@ -46,6 +49,11 @@ export class Video extends HTMLElement {
     return this.shadow.querySelectorAll(string);
   }
 
+  private emitEvent(eventType: PlayerEvents, payload?: object) {
+    const customEvent = new CustomEvent(eventType, { detail: payload });
+     this.player.dispatchEvent(customEvent);
+  }
+
   private addEvent(
     event: VideoEvent,
     callback: (this: HTMLVideoElement, ev: Event) => any,
@@ -66,18 +74,21 @@ export class Video extends HTMLElement {
   //  1. EXPOSED METHOD
   // ==========================================================================
 
-  init(project: Project) {
+  init(project: Project, player: Player) {
     this.videos = videoToMap(project.videos);
+    this.player = player;
   }
 
   async play(id: string, firstPlay = false) {
     const currentVideo: VideoNode = this.videos.get(id);
+
+    const isLastSequence = currentVideo?.interactions ? false : true;
     const source = this.getCurrentVideoTag().querySelector(S.VIDEO_SOURCE);
     source.src = currentVideo.paths[0];
     this.getCurrentVideoTag().load();
 
     const fn = async () => {
-      await this.SetEventsListener(currentVideo);
+      await this.SetEventsListener(currentVideo, isLastSequence);
     };
 
     if (firstPlay) {
@@ -87,16 +98,31 @@ export class Video extends HTMLElement {
     }
 
     await this.getCurrentVideoTag().play();
-    await this.SetEventsListener(currentVideo);
+    await this.SetEventsListener(currentVideo, isLastSequence);
   }
 
   // ==========================================================================
   //  3. EVENTLISTENER MANAGEMENT
   // ==========================================================================
 
-  private async SetEventsListener(currentVideo: VideoNode) {
+  private async SetEventsListener(
+    currentVideo: VideoNode,
+    isLastSequence = false
+  ) {
     const duration = this.getCurrentVideoTag().duration;
     const eventStartTime = duration - currentVideo?.animation?.duration ?? 0;
+
+    if (isLastSequence) {
+      this.addEvent(
+        VideoEvent.TIMEUPDATE,
+        this.getSequenceEndListener(duration)
+      );
+    }
+
+    this.addEvent(
+      VideoEvent.TIMEUPDATE,
+      this.getVideoStartedListener(currentVideo)
+    );
 
     if (eventStartTime > 0) {
       const timerEvent = this.getTimerListener(duration, eventStartTime);
@@ -112,6 +138,14 @@ export class Video extends HTMLElement {
         { once: true }
       );
     }
+  }
+
+  private getSequenceEndListener(duration: number) {
+    return (e: any) => {
+      if (e.target.currentTime == duration) {
+        this.emitEvent(PlayerEvents.VIDEO_END);
+      }
+    };
   }
 
   private getTimeUpdateListener(
@@ -134,6 +168,19 @@ export class Video extends HTMLElement {
     return fn;
   }
 
+  private getVideoStartedListener(video: VideoNode) {
+    const fn = (e: any) => {
+      if (e.target.currentTime > 0) {
+        this.emitEvent(PlayerEvents.VIDEO_STARTED, video);
+        this.getCurrentVideoTag().removeEventListener(
+          VideoEvent.TIMEUPDATE,
+          fn
+        );
+      }
+    };
+    return fn;
+  }
+
   private getTimerListener(duration: number, eventStartTime: number) {
     return (e: any) => {
       const time = e.target.currentTime;
@@ -150,7 +197,9 @@ export class Video extends HTMLElement {
       const max = currentVideo?.interactions?.length - 1 ?? 0;
       const min = 0;
       if (max > 0) {
-        const next = (this.popup.shadow.querySelector(S.SELECTED) as HTMLInputElement)?.value;
+        const next = (
+          this.popup.shadow.querySelector(S.SELECTED) as HTMLInputElement
+        )?.value;
         const nextVideoIndex = next
           ? next
           : currentVideo.interactions[String(randomInt(min, max))].id;

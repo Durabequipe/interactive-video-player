@@ -35,7 +35,7 @@ export class Player extends HTMLElement {
 
   initProject(project: Project) {
     this.project = project;
-    this.videoPlayers.init(project);
+    this.videoPlayers.init(project,this);
     this.videoPlayers.play(this.project.entrypointId, true);
   }
 }

@@ -5,6 +5,7 @@
   - [Description](#description)
   - [Installation](#installation)
   - [Usage Exemple](#usage-exemple)
+  - [Events](#events)
 
 # Interactive-video-player
 
@@ -22,18 +23,22 @@ npm i @shammas44/interactive-video-player
 
 ## Usage Exemple
 
-First import the `Player` class in your script to make the `app-player` custom element available.
+First import the `Player` class in your script to make the `shammas-player` custom element available.
 
 ```typescript
 // index.ts
+
+// imports Players types
 import {
   Player as PlayerElement,
   Project,
   VideoNode
 } from "@shammas44/interactive-video-player";
+//imports the web component called shammas-player
+import from "@shammas44/interactive-video-player";
 ```
 
-Then include it in your html using the `app-player` custom element tag
+Then include it in your html using the `shammas-player` custom element tag
 
 ```html
 <!-- index.html -->
@@ -45,7 +50,7 @@ Then include it in your html using the `app-player` custom element tag
 </head>
 <body>
   <!-- insert your video player -->
-  <app-player></app-player>
+  <shammas-player></shammas-player>
 </body>
 </html>
 ```
@@ -95,8 +100,30 @@ const project: Project = {
   videos: videos,
 };
 
-const player: PlayerElement | null = document.querySelector("app-player");
+const player: PlayerElement | null = document.querySelector("shammas-player");
 if (player != null) {
   player.initProject(project);
 }
 ```
+
+## Events
+
+`shammas-video-end`: Fired when the last video sequence just finished playing
+
+`shammas-sequence-started`: Fired once a new video sequence is played
+
+This events emits The current video of type `VideoNode` available on property `detail`
+
+__Exemple__
+```typescript
+const player: PlayerElement | null = document.querySelector("shammas-player");
+if (player != null) {
+  player.addEventListener('shammas-sequence-started',(e)=>{
+    // log out the current video of type VideoNode
+    console.log(e.detail) 
+  });
+  player.initProject(project);
+}
+```
+⚠️  It is important to set the eventListener before calling `player.initProject()` otherwise, the first video sequence won't be taken into account.
+

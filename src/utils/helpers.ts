@@ -1,11 +1,11 @@
 import { VideoNode } from "../models/project";
 
-export const COMPONENT_BASE_NAME = "shammas-";
+export const COMPONENT_BASE_NAME = "shammas";
 export enum COMPONENT_NAME {
-  CONTROLLER = `${COMPONENT_BASE_NAME}controller`,
-  POPUP = `${COMPONENT_BASE_NAME}popup`,
-  VIDEO = `${COMPONENT_BASE_NAME}video`,
-  PLAYER = `${COMPONENT_BASE_NAME}player`,
+  CONTROLLER = `${COMPONENT_BASE_NAME}-controller`,
+  POPUP = `${COMPONENT_BASE_NAME}-popup`,
+  VIDEO = `${COMPONENT_BASE_NAME}-video`,
+  PLAYER = `${COMPONENT_BASE_NAME}-player`,
 }
 
 export function randomInt(min: number, max: number) {
