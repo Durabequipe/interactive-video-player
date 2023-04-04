@@ -150,7 +150,7 @@ export class Video extends HTMLElement {
       const max = currentVideo?.interactions?.length - 1 ?? 0;
       const min = 0;
       if (max > 0) {
-        const next = (this.selector(S.SELECTED) as HTMLInputElement)?.value;
+        const next = (this.popup.shadow.querySelector(S.SELECTED) as HTMLInputElement)?.value;
         const nextVideoIndex = next
           ? next
           : currentVideo.interactions[String(randomInt(min, max))].id;
