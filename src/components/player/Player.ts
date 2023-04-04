@@ -17,7 +17,7 @@ export class Player extends HTMLElement {
 
     const style = document.createElement("style");
     style.innerText = globalStyle;
-    this.parentNode.appendChild(style);
+    document.querySelector(':root').appendChild(style)
     this.videoPlayers = this.selector(N.VIDEO) as Video;
   }
 
