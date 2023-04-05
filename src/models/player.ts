@@ -14,6 +14,9 @@ export enum Selectors {
   BUTTON_INPUT = "input",
   BUTTON_CONTENT = "div",
   TOGGLE = "#toggle",
+  VOLUME = "#mute",
+  VOLUME_INPUT = "#volume",
+  PROGRESS_BAR = "#progressBar"
 }
 
 export enum VideoEvent {
