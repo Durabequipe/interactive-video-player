@@ -17,7 +17,7 @@ export class Player extends HTMLElement {
 
     const style = document.createElement("style");
     style.innerText = globalStyle;
-    this.parentNode.appendChild(style);
+    document.querySelector(':root').appendChild(style)
     this.videoPlayers = this.selector(N.VIDEO) as Video;
   }
 
@@ -35,7 +35,7 @@ export class Player extends HTMLElement {
 
   initProject(project: Project) {
     this.project = project;
-    this.videoPlayers.init(project);
+    this.videoPlayers.init(project,this);
     this.videoPlayers.play(this.project.entrypointId, true);
   }
 }
