@@ -171,7 +171,7 @@ export class Video extends HTMLElement {
   private getVideoStartedListener(video: VideoNode) {
     const fn = (e: any) => {
       if (e.target.currentTime > 0) {
-        this.emitEvent(PlayerEvents.VIDEO_STARTED, video);
+        this.emitEvent(PlayerEvents.SEQUENCE_STARTED, video);
         this.getCurrentVideoTag().removeEventListener(
           VideoEvent.TIMEUPDATE,
           fn
