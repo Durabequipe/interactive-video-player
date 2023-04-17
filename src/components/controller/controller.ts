@@ -4,6 +4,13 @@ import { Video } from "../video/video";
 import { COMPONENT_NAME as N } from "../../utils/helpers";
 import { KeydownHandler } from "../../utils/KeydownHandler";
 
+import { library, icon } from '@fortawesome/fontawesome-svg-core'
+import { faCamera } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCamera)
+
+const camera = icon({ prefix: 'fas', iconName: 'camera' })
+
 export class Controller extends HTMLElement {
   private currentVideoTagIndex = 0;
   private videoTags: NodeListOf<HTMLVideoElement>;
@@ -22,25 +29,19 @@ export class Controller extends HTMLElement {
     const videoWrapper =this.parentNode.querySelector(N.VIDEO) as Video;
     this.videoTags = videoWrapper.shadow.querySelectorAll(S.VIDEO)
 
-    // const keydownHandler = new KeydownHandler(this.videoTags);
-    // keydownHandler.attachEvent();
+    const keydownHandler = new KeydownHandler(this.videoTags);
+    keydownHandler.attachEvent();
 
     this.toggleButton = this.shadow.querySelector(S.TOGGLE);
     this.toggleButton.addEventListener("click", () => {
       const tag = this.videoTags[this.currentVideoTagIndex];
       tag.paused ? tag.play() : tag.pause();
-    });
-
-    this.volumeInput = this.shadow.querySelector(S.VOLUME_INPUT);
-    this.volumeInput.addEventListener("input", () => {
-      const tag = this.videoTags[this.currentVideoTagIndex];
-      const volume = parseInt(this.volumeInput.value) / 100;
-      tag.volume = volume;
-      if (tag.volume == 0) {
-        tag.muted = true;
+      if (tag.paused) {
+        this.toggleButton.innerText = "continuer";
       } else {
-        tag.muted = false;
+        this.toggleButton.innerText = "pause";
       }
+      this.toggleButton.blur();
     });
 
     this.volumeButton = this.shadow.querySelector(S.VOLUME);
@@ -68,12 +69,25 @@ export class Controller extends HTMLElement {
 
     this.addEventListenersToVideos();
 
-    const avanceRapide = this.shadow.querySelector('#avanceRapide');
-    avanceRapide.addEventListener('click', () => {
-      const tag = this.videoTags[this.currentVideoTagIndex];
-      const duration = tag.duration;
-      const eventTime = 10;
-      tag.currentTime = duration - eventTime;
+    (this.progressBar as HTMLElement).addEventListener("mouseover", () => {
+      this.showController();
+    });
+
+    (this.progressBar as HTMLElement).addEventListener("mouseout", () => {
+      this.showController();
+    });
+
+    // this.progressBar.addEventListener("mouseleave", () => {
+    //   this.hideController();
+    // })
+    
+    this.videoTags.forEach(e => {
+      e.addEventListener("mousemove", () => {
+        this.showController();
+      setTimeout(() => {
+        this.hideController();
+      }, 2000);
+      });
     });
   }
 
@@ -87,6 +101,20 @@ export class Controller extends HTMLElement {
         this.progressBar.value = progress.toString();
       });
     });
+  }
+
+  private showController(): void {
+    const controller = this.shadow.querySelector('.controller__wrapper');
+    // (controller as HTMLElement).style.display = 'block';
+    controller.classList.add("visible");
+    // (controller as HTMLElement).style.opacity = '0.8';
+  }
+  
+  private hideController(): void {
+    const controller = this.shadow.querySelector('.controller__wrapper');
+    // (controller as HTMLElement).style.display = 'none';
+    controller.classList.remove("visible");
+    // (controller as HTMLElement).style.opacity = '0.2';
   }
 
   setCurrentVideoTagIndex(index: number) {

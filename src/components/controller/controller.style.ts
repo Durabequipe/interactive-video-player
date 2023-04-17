@@ -1,28 +1,48 @@
 import { minify } from "../../utils/helpers";
 
 const style = `
+
+video::-webkit-media-controls {
+  display:none !important;
+}
+
 .controller__wrapper {
-  width: 100%;
   height: 50px;
-  background-color: red;
+  background-color: #716A6A50;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out;
 }
 
-#toggle {
-  
-}
-
-.progressBar_wrapper {
-  padding 10%;
-  display: flex;
-  justify-content: center;
+.controller__wrapper.visible {
+  opacity: 1;
 }
 
 #progressBar {
-  width: 95%;
+  width: 70%;
+  height: 3px;
+  border: 1px;
 }
 
-#avanceRapide {
-  color: red;
+/** 
+ * PICTOS
+*/
+
+button {
+  background-color: #00000000;
+  border: none;
+}
+
+svg{
+  fill: white;
+  height: 2.5vh;
+}
+
+.icon {
 }
 `
   const minifyCss = minify(style);
