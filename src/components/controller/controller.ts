@@ -4,12 +4,6 @@ import { Video } from "../video/video";
 import { COMPONENT_NAME as N } from "../../utils/helpers";
 import { KeydownHandler } from "../../utils/KeydownHandler";
 
-import { library, icon } from '@fortawesome/fontawesome-svg-core'
-import { faCamera } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faCamera)
-
-const camera = icon({ prefix: 'fas', iconName: 'camera' })
 
 export class Controller extends HTMLElement {
   private currentVideoTagIndex = 0;
