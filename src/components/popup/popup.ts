@@ -38,9 +38,9 @@ export class Popup extends HTMLElement {
   buildPopup(video: VideoNode) {
     this.popupWrapper.replaceChildren();
     const template = this.templateClone.content.cloneNode(true) as HTMLElement;
-    template.querySelector(S.QUESTION).innerText = video.animation.title || "";
+    // template.querySelector(S.QUESTION).innerText = video.animation.title || "";
     const buttonsWrapper: HTMLElement = template.querySelector(S.POPUP_BUTTONS);
-    this.timer = template.querySelector(S.TIMER_VALUE) as HTMLDivElement;
+    // this.timer = template.querySelector(S.TIMER_VALUE) as HTMLDivElement;
 
     if (video.interactions && buttonsWrapper) {
       this.createButtons(video.interactions, buttonsWrapper);
@@ -48,11 +48,11 @@ export class Popup extends HTMLElement {
     this.popupWrapper.append(template);
   }
 
-  updateTimer(currentTime: number, duration: number, eventStartTime: number) {
-    const width =
-      100 - percentageBetween(currentTime, eventStartTime, duration);
-    this.timer.style.width = `${width}%`;
-  }
+  // updateTimer(currentTime: number, duration: number, eventStartTime: number) {
+  //   const width =
+  //     100 - percentageBetween(currentTime, eventStartTime, duration);
+  //   this.timer.style.width = `${width}%`;
+  // }
 
   togglePopup(position: InteractionPosition) {
     const cssClass = position.toUpperCase();

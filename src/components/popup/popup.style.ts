@@ -7,22 +7,22 @@ const style = `
 
 #popup__wrapper {
   width: 100%;
-  height: 200px;
+  height: 100%;
   overflow: hidden;
   position: absolute;
   bottom: 0;
   background: transparent;
   pointer-events: none;
+  display: flex;
 }
 
 #popup__wrapper > div {
   width: 100%;
-  height: 200px;
+  height: 100%;;
   z-index: 2;
   position: absolute;
   transition: all 1s ease-out;
   top: 100%;
-  background-color: grey;
   display: flex;
   flex-direction: column;
   pointer-events: auto;
@@ -47,13 +47,20 @@ const style = `
 }
 
 #popup__wrapper label {
+  font-family: 'Mplus 1p', sans-serif;
+  color: white;
+  border-right: 5px solid white;
   display: flex;
   width: 100%;
   text-align: center;
   justify-content: center;
   align-items: center;
-  background: Bisque;
   height: 100%; 
+  background: #101010;
+}
+
+#popup__wrapper label:hover {
+  background: red;
 }
 
 #popup__wrapper label div {
@@ -61,31 +68,25 @@ const style = `
 }
 
 #popup__wrapper label:has(input:checked) {
-  background: AntiqueWhite;
+  background: red;
+  opacity: 1;
 }
 
 #popup__wrapper input {
   display:none;
 }
 
-/* ==========================================================================
-**   1. TIMER
-** ========================================================================*/
+@media (orientation: portrait) {
 
-.timer {
-  width: 100%;
-  height: 10px;
-  background-color: grey;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.timer__value {
-  background-color: var(--primary-color);
-  height: 100%;
-  width:100%;
-  transition: all 0.3s ease-out;
+  #popup__wrapper label {
+    
+    border-bottom: 5px solid white;
+  }
+  
+  .popup__div .buttons {
+    flex-direction: column;
+    background: blue;
+  }
 }
 
 /* ==========================================================================

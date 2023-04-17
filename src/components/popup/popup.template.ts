@@ -11,18 +11,6 @@ const templateString = `
     <div class="popup__div">
 
       <!--========================>
-      <--- TIMER 
-      <=========================-->
-      <div class="timer">
-        <div class="timer__value"></div>
-      </div>
-
-      <!--========================>
-      <--- QUESTION 
-      <=========================-->
-      <p>... YOUR QUESTION HERE ...</p>
-
-      <!--========================>
       <--- BUTTONS 
       <=========================-->
       <div class="buttons">
