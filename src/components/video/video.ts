@@ -110,7 +110,8 @@ export class Video extends HTMLElement {
     isLastSequence = false
   ) {
     const duration = this.getCurrentVideoTag().duration;
-    const eventStartTime = duration - currentVideo?.animation?.duration ?? 0;
+    const eventStartTime = duration;
+    // const eventStartTime = duration - currentVideo?.animation?.duration ?? 0;
 
     if (isLastSequence) {
       this.addEvent(
@@ -184,7 +185,7 @@ export class Video extends HTMLElement {
   private getTimerListener(duration: number, eventStartTime: number) {
     return (e: any) => {
       const time = e.target.currentTime;
-      this.popup.updateTimer(time, duration, eventStartTime);
+      // this.popup.updateTimer(time, duration, eventStartTime);
     };
   }
 

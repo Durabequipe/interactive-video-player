@@ -11,6 +11,7 @@ video {
   position: relative;
   top: 0;
   left: 0;
+  max-height: 100vh;
 }
 
 #video-1 {
