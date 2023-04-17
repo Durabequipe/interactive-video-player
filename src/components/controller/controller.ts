@@ -19,6 +19,7 @@ export class Controller extends HTMLElement {
   private volumeButton: HTMLButtonElement;
   private volumeInput: HTMLInputElement;
   private progressBar: HTMLInputElement;
+  private hideTimeout: number;
 
   constructor() {
     super();
@@ -37,9 +38,11 @@ export class Controller extends HTMLElement {
       const tag = this.videoTags[this.currentVideoTagIndex];
       tag.paused ? tag.play() : tag.pause();
       if (tag.paused) {
-        this.toggleButton.innerText = "continuer";
+        this.toggleButton.querySelector('img').src = "https://api.iconify.design/ic/round-play-arrow.svg?color=white&width=30"
+        this.toggleButton.querySelector('img').alt = "play"
       } else {
-        this.toggleButton.innerText = "pause";
+        this.toggleButton.querySelector('img').src = "https://api.iconify.design/material-symbols/pause-rounded.svg?color=white&height=30"
+        this.toggleButton.querySelector('img').alt = "pause"
       }
       this.toggleButton.blur();
     });
@@ -49,13 +52,17 @@ export class Controller extends HTMLElement {
       const tag = this.videoTags[this.currentVideoTagIndex];
       if (tag.muted) {
         tag.muted = false;
-        this.volumeButton.innerText = "Mute";
+        // this.volumeButton.innerText = "Mute";
+        this.volumeButton.querySelector('img').src = "https://api.iconify.design/material-symbols/volume-up-rounded.svg?color=white&width=30"
+        this.volumeButton.querySelector('img').alt = "unmuted"
         if (this.volumeInput.value == "0") {
           this.volumeInput.value = "100";
         }
       } else {
         tag.muted = true;
-        this.volumeButton.innerText = "Unmute";
+        // this.volumeButton.innerText = "Unmute";
+        this.volumeButton.querySelector('img').src = "https://api.iconify.design/material-symbols/volume-mute-rounded.svg?color=white&width=30"
+        this.volumeButton.querySelector('img').alt = "muted"
         this.volumeInput.value = "0";
       }
     });
@@ -69,24 +76,20 @@ export class Controller extends HTMLElement {
 
     this.addEventListenersToVideos();
 
-    (this.progressBar as HTMLElement).addEventListener("mouseover", () => {
-      this.showController();
-    });
-
-    (this.progressBar as HTMLElement).addEventListener("mouseout", () => {
-      this.showController();
-    });
-
-    // this.progressBar.addEventListener("mouseleave", () => {
-    //   this.hideController();
-    // })
+    // const controller = this.shadow.querySelector('.controller__wrapper');
+    // console.log(controller);
+    // controller.addEventListener("click", () => {
+    //   this.showController();
+    //   console.log('click');
+    // });
     
     this.videoTags.forEach(e => {
       e.addEventListener("mousemove", () => {
         this.showController();
-      setTimeout(() => {
-        this.hideController();
-      }, 2000);
+        clearTimeout(this.hideTimeout);
+        this.hideTimeout = setTimeout(() => {
+          this.hideController();
+        }, 2000);
       });
     });
   }
@@ -105,16 +108,14 @@ export class Controller extends HTMLElement {
 
   private showController(): void {
     const controller = this.shadow.querySelector('.controller__wrapper');
-    // (controller as HTMLElement).style.display = 'block';
     controller.classList.add("visible");
-    // (controller as HTMLElement).style.opacity = '0.8';
   }
   
   private hideController(): void {
     const controller = this.shadow.querySelector('.controller__wrapper');
-    // (controller as HTMLElement).style.display = 'none';
+  if (!controller.matches(":hover")) {
     controller.classList.remove("visible");
-    // (controller as HTMLElement).style.opacity = '0.2';
+  }
   }
 
   setCurrentVideoTagIndex(index: number) {

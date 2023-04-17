@@ -16,6 +16,9 @@ video::-webkit-media-controls {
   z-index: 2;
   opacity: 0;
   transition: opacity 0.15s ease-in-out;
+  display: flex;
+  align-items: center;
+  // justify-content:center;
 }
 
 .controller__wrapper.visible {
@@ -33,13 +36,20 @@ video::-webkit-media-controls {
 */
 
 button {
+  padding-left: 15px;
+  padding-right: 15px;
   background-color: #00000000;
   border: none;
+}
+
+button img{
+
 }
 
 svg{
   fill: white;
   height: 2.5vh;
+  color: white;
 }
 
 .icon {
