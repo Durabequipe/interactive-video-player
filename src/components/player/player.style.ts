@@ -2,20 +2,20 @@ import { minify } from "../../utils/helpers";
 
 const style = `
 .video-player__wrapper {
+  position: relative;
+  height: 100vh;
+  background: #242424;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content:center;
 }
 
 .video__wrapper {
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  width: 100%;
+  // height: 100%;
 }
 
 .video__wrapper > div {
-  display: flex;
-  flex-direction: column;
-  position: relative;
 }
 `;
 const minifyCss = minify(style);
