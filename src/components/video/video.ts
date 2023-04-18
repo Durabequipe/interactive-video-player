@@ -13,7 +13,7 @@ import { Player } from "../player/Player";
 
 export class Video extends HTMLElement {
   private currentVideoTagIndex = 0;
-  private videoTags: NodeListOf<HTMLVideoElement>;
+  public videoTags: NodeListOf<HTMLVideoElement>;
   private videos: Map<string, VideoNode>;
   public shadow: ShadowRoot;
   private popup: Popup;
@@ -31,6 +31,7 @@ export class Video extends HTMLElement {
     ) as Controller;
     this.popup = this.parentNode.querySelector(N.POPUP) as Popup;
     this.videoTags = this.selectorAll(S.VIDEO) as NodeListOf<HTMLVideoElement>;
+    const currentTime = this.videoTags[this.currentVideoTagIndex].currentTime;
   }
 
   // ==========================================================================
@@ -41,7 +42,7 @@ export class Video extends HTMLElement {
     return this.shadow.querySelector(string);
   }
 
-  private getCurrentVideoTag() {
+  public getCurrentVideoTag() {
     return this.videoTags[this.currentVideoTagIndex] as HTMLVideoElement;
   }
 
@@ -110,8 +111,7 @@ export class Video extends HTMLElement {
     isLastSequence = false
   ) {
     const duration = this.getCurrentVideoTag().duration;
-    const eventStartTime = duration;
-    // const eventStartTime = duration - currentVideo?.animation?.duration ?? 0;
+    const eventStartTime = duration - 0.5;
 
     if (isLastSequence) {
       this.addEvent(
@@ -139,6 +139,15 @@ export class Video extends HTMLElement {
         { once: true }
       );
     }
+
+    const timerEvent = (e: any) => {
+      const currentTime = e.target.currentTime;
+      const remainingTime = Math.abs(duration - currentTime);
+      if (remainingTime <= 0.5) {
+        this.getCurrentVideoTag().pause();
+      }
+    };
+    this.addEvent(VideoEvent.TIMEUPDATE, timerEvent);
   }
 
   private getSequenceEndListener(duration: number) {
@@ -185,7 +194,6 @@ export class Video extends HTMLElement {
   private getTimerListener(duration: number, eventStartTime: number) {
     return (e: any) => {
       const time = e.target.currentTime;
-      // this.popup.updateTimer(time, duration, eventStartTime);
     };
   }
 

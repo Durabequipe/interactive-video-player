@@ -18,7 +18,7 @@ video::-webkit-media-controls {
   transition: opacity 0.15s ease-in-out;
   display: flex;
   align-items: center;
-  // justify-content:center;
+  justify-content:center;
 }
 
 .controller__wrapper.visible {
@@ -26,7 +26,7 @@ video::-webkit-media-controls {
 }
 
 #progressBar {
-  width: 70%;
+  width: 100%;
   height: 3px;
   border: 1px;
 }
