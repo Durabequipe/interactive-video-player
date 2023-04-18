@@ -8,6 +8,7 @@ export class Player extends HTMLElement {
   private project: Project;
   private shadow: ShadowRoot;
   private videoPlayers: Video;
+  /*méthode pub pour démarrer video*/
 
   constructor() {
     super();
@@ -38,6 +39,14 @@ export class Player extends HTMLElement {
     this.videoPlayers.init(project,this);
     this.videoPlayers.play(this.project.entrypointId, true);
   }
+
+  public playVideo(videoId: string) {
+    this.videoPlayers.play(videoId, true);
+  }
+  /**
+   * const player = document.querySelector("nom-du-player");
+   * player.playVideo("id-de-la-vidéo-à-lire");
+   */
 }
 
 customElements.define(N.PLAYER, Player);
