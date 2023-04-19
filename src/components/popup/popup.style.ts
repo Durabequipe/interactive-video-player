@@ -85,7 +85,6 @@ const style = `
   
   .popup__div .buttons {
     flex-direction: column;
-    background: blue;
   }
 }
 
