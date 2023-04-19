@@ -13,6 +13,7 @@ export class Popup extends HTMLElement {
   private templateClone: HTMLTemplateElement;
   private popupWrapper: HTMLDivElement;
   private videoTag: Video;
+  public historicVideos: Array<any> = [];
 
   constructor() {
     super();
@@ -77,7 +78,24 @@ export class Popup extends HTMLElement {
     const button = buttonTmp.content.cloneNode(true) as HTMLElement;
     button.querySelector(S.BUTTON_INPUT).value = interaction.id;
     button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
+
+    const buttonInput = button.querySelector(S.BUTTON_INPUT) as HTMLInputElement;
+    buttonInput.value = interaction.id;
+    button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
+
+    button.querySelector('label').addEventListener("mousedown", (e) => {
+      e.stopPropagation()
+      if(buttonInput.value != this.historicVideos[this.historicVideos.length - 1]){
+        this.historicVideos.push(buttonInput.value);
+      }
+    });
+  
     return button;
+  }
+
+  public getHistoricVideos(): Array<any> {
+    console.log(this.historicVideos)
+    return this.historicVideos;
   }
 }
 
