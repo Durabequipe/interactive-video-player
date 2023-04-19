@@ -80,12 +80,12 @@ export class Video extends HTMLElement {
     this.player = player;
   }
 
-  async play(id: string, firstPlay = false) {
+  async play(id: string, firstPlay = false, pathIndex = 0) {
     const currentVideo: VideoNode = this.videos.get(id);
 
     const isLastSequence = currentVideo?.interactions ? false : true;
     const source = this.getCurrentVideoTag().querySelector(S.VIDEO_SOURCE);
-    source.src = currentVideo.paths[0];
+    source.src = currentVideo.paths[pathIndex] || currentVideo.paths[0];
     this.getCurrentVideoTag().load();
 
     const fn = async () => {

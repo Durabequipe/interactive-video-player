@@ -34,14 +34,14 @@ export class Player extends HTMLElement {
   //  1. EXPOSED METHOD
   // ==========================================================================
 
-  initProject(project: Project) {
+  initProject(project: Project, pathIndex = 0) {
     this.project = project;
     this.videoPlayers.init(project,this);
-    this.videoPlayers.play(this.project.entrypointId, true);
+    this.videoPlayers.play(this.project.entrypointId, true, pathIndex);
   }
 
-  public playVideo(videoId: string) {
-    this.videoPlayers.play(videoId, true);
+  public playVideo(videoId: string, pathIndex = 0) {
+    this.videoPlayers.play(videoId, true, pathIndex);
   }
   /**
    * const player = document.querySelector("nom-du-player");
