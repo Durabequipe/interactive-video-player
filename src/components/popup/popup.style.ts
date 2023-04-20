@@ -59,16 +59,16 @@ const style = `
   background: #101010;
 }
 
-#popup__wrapper label:hover {
-  background: red;
-}
+// #popup__wrapper label:hover {
+//   background: red;
+// }
 
 #popup__wrapper label div {
   text-align:center;
 }
 
 #popup__wrapper label:has(input:checked) {
-  background: red;
+  // background: red;
   opacity: 1;
 }
 
@@ -76,15 +76,16 @@ const style = `
   display:none;
 }
 
-@media (orientation: portrait) {
+@media (max-width: 600px) {
 
   #popup__wrapper label {
-    
+
     border-bottom: 5px solid white;
   }
   
   .popup__div .buttons {
     flex-direction: column;
+    font-size: 200%;
   }
 }
 

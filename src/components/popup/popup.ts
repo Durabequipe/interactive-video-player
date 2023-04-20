@@ -14,6 +14,7 @@ export class Popup extends HTMLElement {
   private popupWrapper: HTMLDivElement;
   private videoTag: Video;
   public historicVideos: Array<any> = [];
+  public themeColor: string;
 
   constructor() {
     super();
@@ -23,6 +24,7 @@ export class Popup extends HTMLElement {
     this.templateClone = this.selector(S.POPUP_TMP) as HTMLTemplateElement;
     this.popupWrapper = this.selector(S.POPUP_WRAPPER) as HTMLDivElement;
     this.videoTag = this.parentElement.querySelector('shammas-video')
+    this.themeColor = 'red'
   }
 
   // ==========================================================================
@@ -82,6 +84,24 @@ export class Popup extends HTMLElement {
     const buttonInput = button.querySelector(S.BUTTON_INPUT) as HTMLInputElement;
     buttonInput.value = interaction.id;
     button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
+
+
+    const label = button.querySelector(S.BUTTON_CONTENT).parentElement;
+    
+    label.addEventListener('mouseenter', () => {
+      label.style.backgroundColor = this.themeColor;
+    });
+    
+    label.addEventListener('mouseout', () => {
+      label.style.backgroundColor = '';
+    });
+
+
+    // const checkedLabels = document.querySelectorAll('#popup__wrapper label:has(input:checked)');
+    // checkedLabels.forEach(label => {
+    //   // label.style.background = 'red';
+    //   // label.style.opacity = '1';
+    // });
 
     button.querySelector('label').addEventListener("mousedown", (e) => {
       e.stopPropagation()
