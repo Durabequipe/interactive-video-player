@@ -140,11 +140,14 @@ export class Video extends HTMLElement {
       );
     }
 
+    let pauseEventTriggered = false;
+
     const timerEvent = (e: any) => {
       const currentTime = e.target.currentTime;
       const remainingTime = Math.abs(duration - currentTime);
-      if (remainingTime <= 0.5) {
+      if (remainingTime <= 0.5 && !pauseEventTriggered) {
         this.getCurrentVideoTag().pause();
+        pauseEventTriggered = true;
       }
     };
     this.addEvent(VideoEvent.TIMEUPDATE, timerEvent);
