@@ -98,6 +98,11 @@ export class Video extends HTMLElement {
       });
     }
 
+    if (isLastSequence) {
+      this.emitEvent(PlayerEvents.LAST_SEQUENCE_REACHED);
+      console.log('lastSequenceReached')
+    }
+
     await this.getCurrentVideoTag().play();
     await this.SetEventsListener(currentVideo, isLastSequence);
   }
@@ -145,10 +150,14 @@ export class Video extends HTMLElement {
     const timerEvent = (e: any) => {
       const currentTime = e.target.currentTime;
       const remainingTime = Math.abs(duration - currentTime);
-      if (remainingTime <= 0.5 && !pauseEventTriggered) {
-        this.getCurrentVideoTag().pause();
-        pauseEventTriggered = true;
+      const isLastSequence = currentVideo?.interactions ? false : true;
+      if (!isLastSequence) {
+        if (remainingTime <= 0.5 && !pauseEventTriggered) {
+          this.getCurrentVideoTag().pause();
+          pauseEventTriggered = true;
+        }
       }
+      
     };
     this.addEvent(VideoEvent.TIMEUPDATE, timerEvent);
   }
@@ -173,8 +182,11 @@ export class Video extends HTMLElement {
         this.addEvent(VideoEvent.TIMEUPDATE, timerEvent);
         this.removeEvent(VideoEvent.TIMEUPDATE, fn);
 
+        const isLastSequence = currentVideo?.interactions ? false : true;
         setTimeout(() => {
-          this.popup.togglePopup(currentVideo.animation.position);
+          if(!isLastSequence) {
+            this.popup.togglePopup(currentVideo.animation.position);
+          };
         }, 100);
       }
     };
