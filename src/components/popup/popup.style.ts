@@ -14,6 +14,7 @@ const style = `
   background: transparent;
   pointer-events: none;
   display: flex;
+  z-index: 6;
 }
 
 #popup__wrapper > div {
