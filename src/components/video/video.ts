@@ -93,6 +93,9 @@ export class Video extends HTMLElement {
     };
 
     if (firstPlay) {
+      // console.log(Math.floor(Math.random()*6.7)*10)
+      // console.log()
+      this.getCurrentVideoTag().currentTime = randomInt(0, 30);
       return this.addEvent(VideoEvent.CANPLAY, fn, {
         once: true,
       });
