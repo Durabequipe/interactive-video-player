@@ -49,15 +49,11 @@ export class Controller extends HTMLElement {
         // this.volumeButton.innerText = "Mute";
         this.volumeButton.querySelector('img').src = "https://api.iconify.design/material-symbols/volume-up-rounded.svg?color=white&width=30"
         this.volumeButton.querySelector('img').alt = "unmuted"
-        if (this.volumeInput.value == "0") {
-          this.volumeInput.value = "100";
-        }
       } else {
         tag.muted = true;
         // this.volumeButton.innerText = "Unmute";
         this.volumeButton.querySelector('img').src = "https://api.iconify.design/material-symbols/volume-mute-rounded.svg?color=white&width=30"
         this.volumeButton.querySelector('img').alt = "muted"
-        this.volumeInput.value = "0";
       }
     });
 
