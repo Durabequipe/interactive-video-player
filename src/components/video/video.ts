@@ -237,7 +237,7 @@ export class Video extends HTMLElement {
         this.play(nextVideoIndex);
         this.switchVideoTag();
       }
-      this.popup.togglePopup(currentVideo.animation.position);
+      this.popup.togglePopup(currentVideo?.animation?.position);
     };
   }
 
