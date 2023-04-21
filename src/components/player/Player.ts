@@ -34,7 +34,7 @@ export class Player extends HTMLElement {
   //  1. EXPOSED METHOD
   // ==========================================================================
 
-  initProject(project: Project, pathIndex: number, firstVideoId?: string) {
+  initProject(project: Project, pathIndex: boolean, firstVideoId?: string) {
     this.project = project;
     this.videoPlayers.init(project,this);
     if(firstVideoId){
@@ -45,7 +45,7 @@ export class Player extends HTMLElement {
     
   }
 
-  public playVideo(videoId: string, pathIndex = 0) {
+  public playVideo(videoId: string, pathIndex: boolean) {
     this.videoPlayers.play(videoId, false, pathIndex);
   }
   /**
