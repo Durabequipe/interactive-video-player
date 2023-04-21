@@ -24,8 +24,8 @@ export class Controller extends HTMLElement {
     const videoWrapper =this.parentNode.querySelector(N.VIDEO) as Video;
     this.videoTags = videoWrapper.shadow.querySelectorAll(S.VIDEO)
 
-    const keydownHandler = new KeydownHandler(this.videoTags);
-    keydownHandler.attachEvent();
+    // const keydownHandler = new KeydownHandler(this.videoTags);
+    // keydownHandler.attachEvent();
 
     this.toggleButton = this.shadow.querySelector(S.TOGGLE);
     this.toggleButton.addEventListener("click", () => {
@@ -70,12 +70,10 @@ export class Controller extends HTMLElement {
 
     this.addEventListenersToVideos();
 
-    // const controller = this.shadow.querySelector('.controller__wrapper');
-    // console.log(controller);
-    // controller.addEventListener("click", () => {
-    //   this.showController();
-    //   console.log('click');
-    // });
+    const controller = this.shadow.querySelector('.controller__wrapper');
+    controller.addEventListener("click", () => {
+      this.showController();
+    });
     
     this.videoTags.forEach(e => {
       e.addEventListener("mousemove", () => {
@@ -83,7 +81,7 @@ export class Controller extends HTMLElement {
         clearTimeout(this.hideTimeout);
         this.hideTimeout = setTimeout(() => {
           this.hideController();
-        }, 2000);
+        }, 1500);
       });
     });
   }
@@ -107,9 +105,9 @@ export class Controller extends HTMLElement {
   
   private hideController(): void {
     const controller = this.shadow.querySelector('.controller__wrapper');
-  if (!controller.matches(":hover")) {
-    controller.classList.remove("visible");
-  }
+    if (!controller.matches(":hover")) {
+      controller.classList.remove("visible");
+    }
   }
 
   setCurrentVideoTagIndex(index: number) {
