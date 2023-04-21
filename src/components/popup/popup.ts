@@ -24,7 +24,7 @@ export class Popup extends HTMLElement {
     this.templateClone = this.selector(S.POPUP_TMP) as HTMLTemplateElement;
     this.popupWrapper = this.selector(S.POPUP_WRAPPER) as HTMLDivElement;
     this.videoTag = this.parentElement.querySelector('shammas-video')
-    this.themeColor = 'red'
+    this.themeColor = 'red';
   }
 
   // ==========================================================================
@@ -50,13 +50,15 @@ export class Popup extends HTMLElement {
     this.popupWrapper.append(template);
   }
 
-  togglePopup(position: InteractionPosition) {
-    const cssClass = position.toUpperCase();
-    this.selector(S.POPUP_DIV).classList.toggle(cssClass);
-    const buttonSel = this.shadow.querySelector('.buttons')
-    buttonSel.addEventListener('click', () => {
-      this.videoTag.getCurrentVideoTag().play();
-    })
+  togglePopup(position?: InteractionPosition) {
+    if(position){
+      const cssClass = position.toUpperCase();
+      this.selector(S.POPUP_DIV).classList.toggle(cssClass);
+      const buttonSel = this.shadow.querySelector('.buttons')
+      buttonSel.addEventListener('click', () => {
+        this.videoTag.getCurrentVideoTag().play();
+      })
+    }
   }
 
   // ==========================================================================
@@ -87,6 +89,7 @@ export class Popup extends HTMLElement {
 
 
     const label = button.querySelector(S.BUTTON_CONTENT).parentElement;
+    // console.log(this.themeColor)
     
     label.addEventListener('mouseenter', () => {
       label.style.backgroundColor = this.themeColor;
