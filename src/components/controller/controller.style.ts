@@ -61,13 +61,6 @@ input[type=range]::-moz-range-thumb {
   cursor: pointer;
 }
 
-input[type=range]::-webkit-slider-runnable-track {
-  background-color: linear-gradient(to right, red 0%, blue calc(50% - 10px), yellow calc(50% - 10px), green 100%);;
-}
- 
-input[type=range]::-moz-range-track {
-  background: linear-gradient(to right, #555 0%, #555 calc(50% - 10px), #4CAF50 calc(50% - 10px), #4CAF50 100%);
-}
 
 
 
