@@ -1,4 +1,5 @@
 import { minify } from "../../utils/helpers";
+import { Player } from "../player/Player";
 
 const style = `
 
@@ -45,7 +46,6 @@ input[type=range] {
 }
 
 input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -102,7 +102,7 @@ svg{
   }
 
   .icon img {
-    width: 70px;
+    height: 10vh;
     visibility: visible;
   }
 
@@ -115,44 +115,42 @@ svg{
     position: absolute;
     padding: 0px;
     height: 5px;
-    top: 1vw;
-    left: 1vw;
+    top: 5vw;
+    left: 3vw;
   }
 
   .sound img {
-    width: 30px;
+    opacity: 0.8;
+    width: 3vh;
   }
 
   #progressBar {
-    margin: 0px;
     position: absolute;
-    padding: 0px;
-    height: 10px;
-    bottom: 1vw;
+    height: 2vh;
+    bottom: 2vw;
     visibility: visible;
   }
 
   input[type=range] {
     -webkit-appearance: none;
     width: 100%;
-    height: 10px;
-    border-radius: 5px;
+    height: 2vh;
+    border-radius: 5vh;
     outline: none;
     background-color: #ffffff10;
   }
   
   input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #ffffff;
+    width: 2vh;
+    height: 2vh;
+    border-radius: 5vh;
     cursor: pointer;
   }
   
   input[type=range]::-moz-range-thumb {
-    width: 10px;
-    height: 10px;
+    width: 1vh;
+    height: 1vh;
     border-radius: 50%;
     background-color: red;
     cursor: pointer;
