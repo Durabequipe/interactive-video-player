@@ -80,12 +80,15 @@ export class Video extends HTMLElement {
     this.player = player;
   }
 
-  async play(id: string, firstPlay = false, pathIndex = 0) {
+  async play(id: string, firstPlay = false, pathIndex = false) {
     const currentVideo: VideoNode = this.videos.get(id);
 
     const isLastSequence = currentVideo?.interactions ? false : true;
     const source = this.getCurrentVideoTag().querySelector(S.VIDEO_SOURCE);
-    source.src = currentVideo.paths[pathIndex] || currentVideo.paths[0];
+
+    let index = Number(pathIndex)
+    source.src = currentVideo.paths[index] || currentVideo.paths[0];
+
     this.getCurrentVideoTag().load();
 
     const fn = async () => {
@@ -95,7 +98,7 @@ export class Video extends HTMLElement {
     if (firstPlay) {
       // console.log(Math.floor(Math.random()*6.7)*10)
       // console.log()
-      this.getCurrentVideoTag().currentTime = randomInt(0, 30);
+      // this.getCurrentVideoTag().currentTime = randomInt(0, 30);
       return this.addEvent(VideoEvent.CANPLAY, fn, {
         once: true,
       });
