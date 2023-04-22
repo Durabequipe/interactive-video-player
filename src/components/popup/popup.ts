@@ -95,13 +95,13 @@ export class Popup extends HTMLElement {
     });
     
     label.addEventListener('mouseenter', () => {
-      if (label.style.backgroundColor != this.videoTag.player.sddColor) {
+      if (label.classList.value != 'clicked') {
         label.style.backgroundColor = this.videoTag.player.sddColor;
       }
     });
     
     label.addEventListener('mouseout', () => {
-      if(label.style.backgroundColor === this.videoTag.player.sddColor && label.classList.value != 'clicked') {
+      if(label.classList.value != 'clicked') {
         label.style.backgroundColor = '';
       }
     });
