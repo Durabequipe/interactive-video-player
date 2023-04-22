@@ -18,7 +18,7 @@ export class Video extends HTMLElement {
   public shadow: ShadowRoot;
   private popup: Popup;
   private controller: Controller;
-  private player: Player;
+  public player: Player;
 
   constructor() {
     super();
