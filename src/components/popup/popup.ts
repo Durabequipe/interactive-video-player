@@ -107,8 +107,6 @@ export class Popup extends HTMLElement {
     });
 
     
-
-
     // const checkedLabels = document.querySelectorAll('#popup__wrapper label:has(input:checked)');
     // checkedLabels.forEach(label => {
     //   // label.style.background = 'red';
