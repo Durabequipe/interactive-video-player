@@ -14,7 +14,6 @@ export class Popup extends HTMLElement {
   private popupWrapper: HTMLDivElement;
   private videoTag: Video;
   public historicVideos: Array<any> = [];
-  public themeColor: string;
 
   constructor() {
     super();
@@ -23,8 +22,7 @@ export class Popup extends HTMLElement {
     this.shadow = shadow;
     this.templateClone = this.selector(S.POPUP_TMP) as HTMLTemplateElement;
     this.popupWrapper = this.selector(S.POPUP_WRAPPER) as HTMLDivElement;
-    this.videoTag = this.parentElement.querySelector('shammas-video')
-    this.themeColor = 'red';
+    this.videoTag = this.parentElement.querySelector('shammas-video');
   }
 
   // ==========================================================================
@@ -91,13 +89,24 @@ export class Popup extends HTMLElement {
     const label = button.querySelector(S.BUTTON_CONTENT).parentElement;
     // console.log(this.themeColor)
     
+    label.addEventListener('click', () => {
+      label.style.backgroundColor = this.videoTag.player.sddColor;
+      label.classList.add('clicked');
+    });
+    
     label.addEventListener('mouseenter', () => {
-      label.style.backgroundColor = this.themeColor;
+      if (label.style.backgroundColor != this.videoTag.player.sddColor) {
+        label.style.backgroundColor = this.videoTag.player.sddColor;
+      }
     });
     
     label.addEventListener('mouseout', () => {
-      label.style.backgroundColor = '';
+      if(label.style.backgroundColor === this.videoTag.player.sddColor && label.classList.value != 'clicked') {
+        label.style.backgroundColor = '';
+      }
     });
+
+    
 
 
     // const checkedLabels = document.querySelectorAll('#popup__wrapper label:has(input:checked)');

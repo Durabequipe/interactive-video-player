@@ -8,7 +8,7 @@ export class Player extends HTMLElement {
   private project: Project;
   private shadow: ShadowRoot;
   private videoPlayers: Video;
-  /*méthode pub pour démarrer video*/
+  public sddColor: string;
 
   constructor() {
     super();
@@ -34,24 +34,21 @@ export class Player extends HTMLElement {
   //  1. EXPOSED METHOD
   // ==========================================================================
 
-  initProject(project: Project, ifMobile: boolean, firstVideoId?: string) {
+  initProject(project: Project, ifMobile: boolean, sddColor: string, firstVideoId?: string) {
     this.project = project;
+    this.sddColor = sddColor;
     this.videoPlayers.init(project,this);
     if(firstVideoId){
       this.videoPlayers.play(firstVideoId, true, ifMobile);
     } else {
       this.videoPlayers.play(this.project.entrypointId, true, ifMobile);
     }
-
   }
 
   public playVideo(videoId: string, ifMobile: boolean) {
     this.videoPlayers.play(videoId, false, ifMobile);
   }
-  /**
-   * const player = document.querySelector("nom-du-player");
-   * player.playVideo("id-de-la-vidéo-à-lire");
-   */
+
 }
 
 customElements.define(N.PLAYER, Player);
