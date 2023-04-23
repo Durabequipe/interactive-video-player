@@ -84,9 +84,10 @@ export class Video extends HTMLElement {
     const currentVideo: VideoNode = this.videos.get(id);
 
     const isLastSequence = currentVideo?.interactions ? false : true;
+
     const source = this.getCurrentVideoTag().querySelector(S.VIDEO_SOURCE);
 
-    let index = Number(pathIndex)
+    const index = Number(pathIndex)
     source.src = currentVideo.paths[index] || currentVideo.paths[0];
 
     this.getCurrentVideoTag().load();
@@ -191,8 +192,8 @@ export class Video extends HTMLElement {
         const isLastSequence = currentVideo?.interactions ? false : true;
         setTimeout(() => {
           if(!isLastSequence) {
-            this.popup.togglePopup(currentVideo.animation.position);
-          };
+            this.popup.togglePopup();
+          }
         }, 100);
       }
     };
@@ -226,7 +227,7 @@ export class Video extends HTMLElement {
       this.removeEvent(VideoEvent.TIMEUPDATE, timerEvent);
       const max = currentVideo?.interactions?.length - 1 ?? 0;
       const min = 0;
-      if (max > 0) {
+      if (max >= 0) {
         const next = (
           this.popup.shadow.querySelector(S.SELECTED) as HTMLInputElement
         )?.value;
@@ -237,7 +238,7 @@ export class Video extends HTMLElement {
         this.play(nextVideoIndex);
         this.switchVideoTag();
       }
-      this.popup.togglePopup(currentVideo?.animation?.position);
+      this.popup.togglePopup();
     };
   }
 

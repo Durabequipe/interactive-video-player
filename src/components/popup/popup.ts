@@ -1,6 +1,5 @@
 import {
   Interaction,
-  InteractionPosition,
   VideoNode,
 } from "../../models/project";
 import { Selectors as S } from "../../models/player";
@@ -48,15 +47,12 @@ export class Popup extends HTMLElement {
     this.popupWrapper.append(template);
   }
 
-  togglePopup(position?: InteractionPosition) {
-    if(position){
-      const cssClass = position.toUpperCase();
-      this.selector(S.POPUP_DIV).classList.toggle(cssClass);
+  togglePopup() {
+      this.selector(S.POPUP_DIV).classList.toggle('BOTTOM');
       const buttonSel = this.shadow.querySelector('.buttons')
       buttonSel.addEventListener('click', () => {
         this.videoTag.getCurrentVideoTag().play();
-      })
-    }
+      },{once:true})
   }
 
   // ==========================================================================

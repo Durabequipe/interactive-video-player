@@ -3,7 +3,7 @@ import { minify } from "../../utils/helpers";
 const style = `
 .video-player__wrapper {
   position: relative;
-  height: 100vh;
+  height: 100%;
   background: #242424;
   display: flex;
   align-items: center;
