@@ -162,6 +162,10 @@ export class Video extends HTMLElement {
       const isLastSequence = currentVideo?.interactions ? false : true;
       if (!isLastSequence) {
         if (remainingTime <= 0.5 && !pauseEventTriggered) {
+
+          this.controller.toggleButton.querySelector("img").src = "https://api.iconify.design/ic/round-play-arrow.svg?color=white&width=30";
+          this.controller.toggleButton.querySelector("img").alt = "play";
+
           this.getCurrentVideoTag().pause();
           pauseEventTriggered = true;
         }
@@ -239,6 +243,9 @@ export class Video extends HTMLElement {
         this.switchCurrentVideoTag();
         this.play(nextVideoIndex, false, this.isMobileIndex);
         this.switchVideoTag();
+        this.controller.toggleButton.querySelector("img").src = "https://api.iconify.design/material-symbols/pause-rounded.svg?color=white&height=30";
+        this.controller.toggleButton.querySelector("img").alt = "pause";
+
       }
       this.popup.togglePopup();
     };
