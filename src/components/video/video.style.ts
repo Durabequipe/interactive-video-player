@@ -5,6 +5,8 @@ div {
   display: flex;
   flex-direction: column;
   position: relative;
+  height: 100%;
+  justify-content: center;
 }
 
 video {
