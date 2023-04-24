@@ -72,7 +72,6 @@ label div {
   font-weight: 500;
   font-size: 32px;
   line-height: 150%;
-  text-transform: uppercase;
   display: flex;
   align-items: center;
   letter-spacing: -0.011em;

@@ -12,6 +12,10 @@ const style = `
 
 .video__wrapper {
   width: 100%;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .video__wrapper > div {
