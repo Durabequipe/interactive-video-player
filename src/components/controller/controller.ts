@@ -1,5 +1,11 @@
 import template from "./controller.template";
-import { Selectors as S } from "../../models/player";
+import {
+  Selectors as S,
+  Icons,
+  MouseEvents,
+  ProgressBarEvents,
+  VideoEvent,
+} from "../../models/player";
 import { Video } from "../video/video";
 import { COMPONENT_NAME as N } from "../../utils/helpers";
 import { KeydownHandler } from "../../utils/KeydownHandler";
@@ -22,48 +28,39 @@ export class Controller extends HTMLElement {
     const videoWrapper = this.parentNode.querySelector(N.VIDEO) as Video;
     this.videoTags = videoWrapper.shadow.querySelectorAll(S.VIDEO);
 
-    // const keydownHandler = new KeydownHandler(this.videoTags);
-    // keydownHandler.attachEvent();
-
     this.toggleButton = this.shadow.querySelector(S.TOGGLE);
-    this.toggleButton.addEventListener("click", () => {
+    this.toggleButton.addEventListener(MouseEvents.CLICK, () => {
       const tag = this.videoTags[this.currentVideoTagIndex];
       tag.paused ? tag.play() : tag.pause();
       if (tag.paused) {
-        this.toggleButton.querySelector("img").src =
-          "https://api.iconify.design/ic/round-play-arrow.svg?color=white&width=30";
-        this.toggleButton.querySelector("img").alt = "play";
+        this.toggleButton.querySelector(S.ICON).src = Icons.PLAY;
+        this.toggleButton.querySelector(S.ICON).alt = "play";
       } else {
-        this.toggleButton.querySelector("img").src =
-          "https://api.iconify.design/material-symbols/pause-rounded.svg?color=white&height=30";
-        this.toggleButton.querySelector("img").alt = "pause";
+        this.toggleButton.querySelector(S.ICON).src = Icons.PAUSE;
+        this.toggleButton.querySelector(S.ICON).alt = "pause";
       }
       this.toggleButton.blur();
     });
 
     this.volumeButton = this.shadow.querySelector(S.VOLUME);
-    this.volumeButton.addEventListener("click", () => {
+    this.volumeButton.addEventListener(MouseEvents.CLICK, () => {
       const tag = this.videoTags[this.currentVideoTagIndex];
       if (tag.muted) {
         tag.muted = false;
-        // this.volumeButton.innerText = "Mute";
-        this.volumeButton.querySelector("img").src =
-          "https://api.iconify.design/material-symbols/volume-up-rounded.svg?color=white&width=30";
-        this.volumeButton.querySelector("img").alt = "unmuted";
+        this.volumeButton.querySelector(S.ICON).src = Icons.VOLUME_UP;
+        this.volumeButton.querySelector(S.ICON).alt = "unmuted";
       } else {
         tag.muted = true;
-        // this.volumeButton.innerText = "Unmute";
-        this.volumeButton.querySelector("img").src =
-          "https://api.iconify.design/material-symbols/volume-mute-rounded.svg?color=white&width=30";
-        this.volumeButton.querySelector("img").alt = "muted";
+        this.volumeButton.querySelector(S.ICON).src = Icons.VOLUME_MUTE;
+        this.volumeButton.querySelector(S.ICON).alt = "muted";
       }
     });
 
     this.progressBar = this.shadow.querySelector(S.PROGRESS_BAR);
-    this.progressBar.addEventListener('click', (e) => {
+    this.progressBar.addEventListener(MouseEvents.CLICK, (e) => {
       e.stopPropagation();
-    })
-    this.progressBar.addEventListener("input", () => {
+    });
+    this.progressBar.addEventListener(ProgressBarEvents.INPUT, () => {
       const tag = this.videoTags[this.currentVideoTagIndex];
       const time = tag.duration * (parseInt(this.progressBar.value) / 100);
       if (time != tag.duration) {
@@ -73,13 +70,13 @@ export class Controller extends HTMLElement {
 
     this.addEventListenersToVideos();
 
-    const controller = this.shadow.querySelector(".controller__wrapper");
-    controller.addEventListener("click", () => {
+    const controller = this.shadow.querySelector(S.CONTROLLER_WRAPPER);
+    controller.addEventListener(MouseEvents.CLICK, () => {
       this.showController();
     });
 
     this.videoTags.forEach((e) => {
-      e.addEventListener("mousemove", () => {
+      e.addEventListener(MouseEvents.MOVE, () => {
         this.showController();
         clearTimeout(this.hideTimeout);
         this.hideTimeout = setTimeout(() => {
@@ -91,7 +88,7 @@ export class Controller extends HTMLElement {
 
   private addEventListenersToVideos(): void {
     this.videoTags.forEach((videoTag: HTMLVideoElement) => {
-      videoTag.addEventListener("timeupdate", () => {
+      videoTag.addEventListener(VideoEvent.TIMEUPDATE, () => {
         const currentTime = videoTag.currentTime;
         const duration = videoTag.duration;
         let progress = (currentTime / duration) * 100;
@@ -104,18 +101,20 @@ export class Controller extends HTMLElement {
   }
 
   private showController(): void {
-    const controller = this.shadow.querySelector(".controller__wrapper");
-    controller.classList.add("visible");
+    const controller = this.shadow.querySelector(S.CONTROLLER_WRAPPER);
+    controller.classList.add(S.VISIBLE.replace('.',''));
   }
 
   private hideController(): void {
-    const controller = this.shadow.querySelector(".controller__wrapper");
-    if (!controller.matches(":hover")) {
-      controller.classList.remove("visible");
+    const controller = this.shadow.querySelector(S.CONTROLLER_WRAPPER);
+    if (controller) {
+      let hasClass = false;
+      controller.classList.forEach((value) => {
+        if (value == S.VISIBLE.replace('.','')) hasClass = true;
+      });
+      if (hasClass) controller.classList.remove(S.VISIBLE.replace('.',''));
     }
   }
-
-  private
 
   setCurrentVideoTagIndex(index: number) {
     this.currentVideoTagIndex = index;

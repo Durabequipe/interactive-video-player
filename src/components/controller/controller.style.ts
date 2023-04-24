@@ -1,7 +1,4 @@
-import { minify } from "../../utils/helpers";
-
 const style = `
-
 video::-webkit-media-controls {
   display:none !important;
 }
@@ -14,7 +11,7 @@ video::-webkit-media-controls {
   left: 0;
   width: 100%;
   z-index: 2;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.15s ease-in-out;
   display: grid;
   grid-template-columns: 1fr 1fr 16fr 1fr 1fr;
@@ -26,9 +23,9 @@ video::-webkit-media-controls {
   opacity: 1;
 }
 
-/********************************************************************************
- *                  PROGRESS BAR
- ********************************************************************************/
+/* ==========================================================================
+**   0. PROGRESS BAR
+** ========================================================================*/
 
 #progressBar {
   width: 100%;
@@ -49,7 +46,7 @@ input[type=range]::-webkit-slider-thumb {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: white;
   cursor: pointer;
 }
 
@@ -57,16 +54,13 @@ input[type=range]::-moz-range-thumb {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: white;
   cursor: pointer;
 }
 
-
-
-
-/********************************************************************************
- *                  PICTOS
- ********************************************************************************/
+/* ==========================================================================
+**   1. PICTOS
+** ========================================================================*/
 
 button {
   padding-left: 15px;
@@ -129,7 +123,6 @@ button {
     height: 2vh;
     border-radius: 5vh;
     outline: none;
-    background-color: #ffffff10;
   }
   
   input[type=range]::-webkit-slider-thumb {
@@ -137,15 +130,11 @@ button {
     width: 2vh;
     height: 2vh;
     border-radius: 5vh;
-    cursor: pointer;
   }
   
   input[type=range]::-moz-range-thumb {
     width: 1vh;
     height: 1vh;
-    border-radius: 50%;
-    background-color: red;
-    cursor: pointer;
   }
 }
 `

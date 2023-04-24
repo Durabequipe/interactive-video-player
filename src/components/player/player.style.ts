@@ -1,5 +1,3 @@
-import { minify } from "../../utils/helpers";
-
 const style = `
 .video-player__wrapper {
   position: relative;
@@ -17,5 +15,4 @@ const style = `
   align-items: center;
 }
 `;
-const minifyCss = minify(style);
-export default minifyCss;
+export default style;

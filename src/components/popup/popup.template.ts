@@ -1,5 +1,4 @@
 import style from './popup.style';
-import { removeHTMLComments } from '../../utils/helpers';
 import  '../controller/controller';
 
 const template = document.createElement("template");
@@ -27,7 +26,6 @@ const templateString = `
 </div>
 `;
 
-const templateWithoutComments = removeHTMLComments(templateString);
-template.innerHTML = templateWithoutComments
+template.innerHTML = templateString
 
 export default template;

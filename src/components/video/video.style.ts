@@ -1,9 +1,6 @@
-import { minify } from "../../utils/helpers";
-
 const style = `
 div {
   display: flex;
-  flex-direction: column;
   position: relative;
   height: 100%;
   justify-content: center;
@@ -16,18 +13,19 @@ video {
   max-height: 100vh;
 }
 
-#video-1 {
-  z-index: 1;
+.video-1 {
+  width:0;
+  z-index: -1;
 }
 
-#video-2 {
-  z-index: 1;
-  position: absolute;
+.video-2 {
+  z-index: -1;
+  width:0;
 }
 
 .is-primary-video {
+  width:100%;
   z-index: 2 !important;
 }
 `;
-const minifyCss = minify(style);
-export default minifyCss;
+export default style;

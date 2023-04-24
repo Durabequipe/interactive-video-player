@@ -1,10 +1,4 @@
-import { minify } from "../../utils/helpers";
-
 const style = `
-/* ==========================================================================
-**   0. POPUP
-** ========================================================================*/
-
 #popup__wrapper {
   width: 100%;
   height: 100%;
@@ -62,7 +56,6 @@ label {
   cursor:pointer;
 }
 
-
 label:hover {
   background: var(--shammas-primary-color);
 }
@@ -94,18 +87,12 @@ input {
   }
 }
 
-
 /* ==========================================================================
-**  2. UILITY 
+**  0. UILITY 
 ** ========================================================================*/
-
-.FULL {
-  top: 0 !important;
-}
 
 .BOTTOM {
   top: 0 !important;
 }
 `
-  // const minifyCss = minify(style);
-  export default style;
+export default style;

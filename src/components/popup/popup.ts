@@ -1,8 +1,5 @@
-import {
-  Interaction,
-  VideoNode,
-} from "../../models/project";
-import { Selectors as S } from "../../models/player";
+import { Interaction, VideoNode } from "../../models/project";
+import { Selectors as S, MouseEvents } from "../../models/player";
 import template from "./popup.template";
 import { COMPONENT_NAME as N } from "../../utils/helpers";
 import { Video } from "../video/video";
@@ -12,7 +9,6 @@ export class Popup extends HTMLElement {
   private templateClone: HTMLTemplateElement;
   private popupWrapper: HTMLDivElement;
   private videoTag: Video;
-  public historicVideos: Array<any> = [];
 
   constructor() {
     super();
@@ -21,7 +17,7 @@ export class Popup extends HTMLElement {
     this.shadow = shadow;
     this.templateClone = this.selector(S.POPUP_TMP) as HTMLTemplateElement;
     this.popupWrapper = this.selector(S.POPUP_WRAPPER) as HTMLDivElement;
-    this.videoTag = this.parentElement.querySelector('shammas-video');
+    this.videoTag = this.parentElement.querySelector(N.VIDEO);
   }
 
   // ==========================================================================
@@ -48,11 +44,15 @@ export class Popup extends HTMLElement {
   }
 
   togglePopup() {
-      this.selector(S.POPUP_DIV).classList.toggle('BOTTOM');
-      const buttonSel = this.shadow.querySelector('.buttons')
-      buttonSel.addEventListener('click', () => {
+    this.selector(S.POPUP_DIV).classList.toggle(S.BOTTOM.replace(".", ""));
+    const buttonSel = this.shadow.querySelector(S.POPUP_BUTTONS);
+    buttonSel.addEventListener(
+      MouseEvents.CLICK,
+      () => {
         this.videoTag.getCurrentVideoTag().play();
-      },{once:true})
+      },
+      { once: true }
+    );
   }
 
   // ==========================================================================
@@ -77,22 +77,13 @@ export class Popup extends HTMLElement {
     button.querySelector(S.BUTTON_INPUT).value = interaction.id;
     button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
 
-    const buttonInput = button.querySelector(S.BUTTON_INPUT) as HTMLInputElement;
+    const buttonInput = button.querySelector(
+      S.BUTTON_INPUT
+    ) as HTMLInputElement;
     buttonInput.value = interaction.id;
     button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
 
-    button.querySelector('label').addEventListener("mousedown", (e) => {
-      e.stopPropagation()
-      if(buttonInput.value != this.historicVideos[this.historicVideos.length - 1]){
-        this.historicVideos.push(buttonInput.value);
-      }
-    });
-  
     return button;
-  }
-
-  public getHistoricVideos(): Array<any> {
-    return this.historicVideos;
   }
 }
 

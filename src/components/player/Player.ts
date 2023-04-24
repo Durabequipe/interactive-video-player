@@ -3,6 +3,7 @@ import template from "./player.template";
 import globalStyle from "../../utils/globalStyle";
 import { Video } from "../video/video";
 import { COMPONENT_NAME as N } from "../../utils/helpers";
+import { VideoEvent } from "../../models/player";
 
 export class Player extends HTMLElement {
   private project: Project;
@@ -17,7 +18,7 @@ export class Player extends HTMLElement {
 
     const style = document.createElement("style");
     style.innerText = globalStyle;
-    document.querySelector(':root').appendChild(style)
+    document.querySelector(":root").appendChild(style);
     this.videoPlayers = this.selector(N.VIDEO) as Video;
   }
 
@@ -35,18 +36,24 @@ export class Player extends HTMLElement {
 
   initProject(project: Project, isMobile: boolean, firstVideoId?: string) {
     this.project = project;
-    this.videoPlayers.init(project,this);
-    if(firstVideoId){
+    this.videoPlayers.init(project, this);
+    if (firstVideoId) {
       this.videoPlayers.play(firstVideoId, true, isMobile);
     } else {
       this.videoPlayers.play(this.project.entrypointId, true, isMobile);
     }
   }
 
-  public playVideo(videoId: string, isMobile: boolean) {
+  playVideo(videoId: string, isMobile: boolean) {
     this.videoPlayers.play(videoId, false, isMobile);
   }
 
+  togglePlay() {
+    const videoTag = this.videoPlayers.getCurrentVideoTag();
+    if (videoTag) {
+      videoTag.paused ? videoTag.play() : videoTag.pause();
+    }
+  }
 }
 
 customElements.define(N.PLAYER, Player);

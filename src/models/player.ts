@@ -4,6 +4,7 @@ export enum Selectors {
   POPUP_WRAPPER = "#popup__wrapper",
   VIDEO = "video",
   POPUP_DIV = ".popup__div",
+  POPUP_BUTTON = "label",
   VIDEO_SOURCE = "source",
   SELECTED = "input:checked",
   TIMER = ".timer",
@@ -16,7 +17,11 @@ export enum Selectors {
   TOGGLE = "#toggle",
   VOLUME = "#mute",
   VOLUME_INPUT = "#volume",
-  PROGRESS_BAR = "#progressBar"
+  PROGRESS_BAR = "#progressBar",
+  CONTROLLER_WRAPPER = ".controller__wrapper",
+  BOTTOM = ".BOTTOM",
+  VISIBLE = ".visible",
+  ICON = "img",
 }
 
 export enum VideoEvent {
@@ -44,3 +49,27 @@ export enum VideoEvent {
   WAITING = "waiting",
 }
 
+export enum MouseEvents {
+  CLICK = "click",
+  DBLCLICK = "dblclick",
+  DOWN = "mousedown",
+  ENTER = "mouseenter",
+  LEAVE = "mouseleave",
+  MOVE = "mousemove",
+  OUT = "mouseout",
+  OVER = "mouseover",
+  UP = "mouseup",
+}
+
+export enum ProgressBarEvents {
+  INPUT = 'input'
+}
+
+const src = "https://api.iconify.design/";
+
+export enum Icons {
+  PAUSE = `${src}material-symbols/pause-rounded.svg?color=white&height=30`,
+  PLAY = `${src}ic/round-play-arrow.svg?color=white&width=30`,
+  VOLUME_UP = `${src}material-symbols/volume-up-rounded.svg?color=white&width=30`,
+  VOLUME_MUTE = `${src}material-symbols/volume-mute-rounded.svg?color=white&width=30`,
+}

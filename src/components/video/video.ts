@@ -1,6 +1,6 @@
 import { Project, VideoNode } from "../../models/project";
 import { PlayerEvents } from "../../models/events";
-import { Selectors as S, VideoEvent } from "../../models/player";
+import { Selectors as S, VideoEvent,Icons } from "../../models/player";
 import {
   randomInt,
   videoToMap,
@@ -19,7 +19,7 @@ export class Video extends HTMLElement {
   private popup: Popup;
   private controller: Controller;
   public player: Player;
-  private isMobileIndex: boolean;
+  private isMobile: boolean;
 
   constructor() {
     super();
@@ -32,7 +32,6 @@ export class Video extends HTMLElement {
     ) as Controller;
     this.popup = this.parentNode.querySelector(N.POPUP) as Popup;
     this.videoTags = this.selectorAll(S.VIDEO) as NodeListOf<HTMLVideoElement>;
-    const currentTime = this.videoTags[this.currentVideoTagIndex].currentTime;
   }
 
   // ==========================================================================
@@ -53,7 +52,7 @@ export class Video extends HTMLElement {
 
   private emitEvent(eventType: PlayerEvents, payload?: object) {
     const customEvent = new CustomEvent(eventType, { detail: payload });
-     this.player.dispatchEvent(customEvent);
+    this.player.dispatchEvent(customEvent);
   }
 
   private addEvent(
@@ -83,13 +82,11 @@ export class Video extends HTMLElement {
 
   async play(id: string, firstPlay = false, isMobile: boolean) {
     const currentVideo: VideoNode = this.videos.get(id);
-
     const isLastSequence = currentVideo?.interactions ? false : true;
-
     const source = this.getCurrentVideoTag().querySelector(S.VIDEO_SOURCE);
 
-    this.isMobileIndex = isMobile;
-    const index = Number(this.isMobileIndex);
+    this.isMobile = isMobile;
+    const index = Number(this.isMobile);
     source.src = currentVideo.paths[index] || currentVideo.paths[0];
 
     this.getCurrentVideoTag().load();
@@ -99,9 +96,6 @@ export class Video extends HTMLElement {
     };
 
     if (firstPlay) {
-      // console.log(Math.floor(Math.random()*6.7)*10)
-      // console.log()
-      // this.getCurrentVideoTag().currentTime = randomInt(0, 30);
       return this.addEvent(VideoEvent.CANPLAY, fn, {
         once: true,
       });
@@ -109,7 +103,6 @@ export class Video extends HTMLElement {
 
     if (isLastSequence) {
       this.emitEvent(PlayerEvents.LAST_SEQUENCE_REACHED);
-      console.log('lastSequenceReached')
     }
 
     await this.getCurrentVideoTag().play();
@@ -117,7 +110,7 @@ export class Video extends HTMLElement {
   }
 
   // ==========================================================================
-  //  3. EVENTLISTENER MANAGEMENT
+  //  2. EVENTLISTENER MANAGEMENT
   // ==========================================================================
 
   private async SetEventsListener(
@@ -140,7 +133,7 @@ export class Video extends HTMLElement {
     );
 
     if (eventStartTime > 0) {
-      const timerEvent = this.getTimerListener(duration, eventStartTime);
+      const timerEvent = this.getTimerListener();
 
       this.addEvent(
         VideoEvent.TIMEUPDATE,
@@ -162,15 +155,13 @@ export class Video extends HTMLElement {
       const isLastSequence = currentVideo?.interactions ? false : true;
       if (!isLastSequence) {
         if (remainingTime <= 0.5 && !pauseEventTriggered) {
-
-          this.controller.toggleButton.querySelector("img").src = "https://api.iconify.design/ic/round-play-arrow.svg?color=white&width=30";
-          this.controller.toggleButton.querySelector("img").alt = "play";
+          this.controller.toggleButton.querySelector(S.ICON).src = Icons.PLAY;
+          this.controller.toggleButton.querySelector(S.ICON).alt = "play";
 
           this.getCurrentVideoTag().pause();
           pauseEventTriggered = true;
         }
       }
-      
     };
     this.addEvent(VideoEvent.TIMEUPDATE, timerEvent);
   }
@@ -197,7 +188,7 @@ export class Video extends HTMLElement {
 
         const isLastSequence = currentVideo?.interactions ? false : true;
         setTimeout(() => {
-          if(!isLastSequence) {
+          if (!isLastSequence) {
             this.popup.togglePopup();
           }
         }, 100);
@@ -219,9 +210,9 @@ export class Video extends HTMLElement {
     return fn;
   }
 
-  private getTimerListener(duration: number, eventStartTime: number) {
+  private getTimerListener() {
     return (e: any) => {
-      const time = e.target.currentTime;
+      return e.target.currentTime;
     };
   }
 
@@ -241,18 +232,18 @@ export class Video extends HTMLElement {
           ? next
           : currentVideo.interactions[String(randomInt(min, max))].id;
         this.switchCurrentVideoTag();
-        this.play(nextVideoIndex, false, this.isMobileIndex);
+        this.play(nextVideoIndex, false, this.isMobile);
         this.switchVideoTag();
-        this.controller.toggleButton.querySelector("img").src = "https://api.iconify.design/material-symbols/pause-rounded.svg?color=white&height=30";
-        this.controller.toggleButton.querySelector("img").alt = "pause";
+        this.controller.toggleButton.querySelector(S.ICON).src = Icons.PAUSE;
+        this.controller.toggleButton.querySelector(S.ICON).alt = "pause";
 
-      this.popup.togglePopup();
+        this.popup.togglePopup();
       }
     };
   }
 
   // ==========================================================================
-  //  4. PRIVATE HELPERS
+  //  3. PRIVATE HELPERS
   // ==========================================================================
 
   private switchVideoTag() {

@@ -133,3 +133,4 @@ if (player != null) {
 ```
 ⚠️  It is important to set the eventListener before calling `player.initProject()` otherwise, the first video sequence won't be taken into account.
 
+

@@ -1,4 +1,5 @@
 import style from './controller.style';
+import { Icons } from '../../models/player';
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -6,10 +7,10 @@ template.innerHTML = `
   <div class="controller__wrapper">
     
     <button id="toggle" class="icon play" aria-label="PLAY/PAUSE">
-      <img src="https://api.iconify.design/ic/round-play-arrow.svg?color=white&width=30" alt="ee">
+      <img src="${Icons.PLAY}" alt="play">
     </button>
     <button id="mute" class="icon sound" aria-label="MUTE/UNMUTE">
-      <img src="https://api.iconify.design/material-symbols/volume-up-rounded.svg?color=white&width=30" alt="eee">
+      <img src="${Icons.VOLUME_UP}" alt="mute">
     </button>
     <input id="progressBar" type="range" name="progressBar" min="0" max="100" value="0">
   </div>
