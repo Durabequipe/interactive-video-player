@@ -9,6 +9,7 @@ export class Player extends HTMLElement {
   private shadow: ShadowRoot;
   private videoPlayers: Video;
   public sddColor: string;
+  public isMobile: boolean;
 
   constructor() {
     super();
@@ -34,19 +35,20 @@ export class Player extends HTMLElement {
   //  1. EXPOSED METHOD
   // ==========================================================================
 
-  initProject(project: Project, ifMobile: boolean, sddColor: string, firstVideoId?: string) {
+  initProject(project: Project, isMobile: boolean, sddColor: string, firstVideoId?: string) {
+    this.isMobile = isMobile;
     this.project = project;
     this.sddColor = sddColor;
     this.videoPlayers.init(project,this);
     if(firstVideoId){
-      this.videoPlayers.play(firstVideoId, true, ifMobile);
+      this.videoPlayers.play(firstVideoId, true, isMobile);
     } else {
-      this.videoPlayers.play(this.project.entrypointId, true, ifMobile);
+      this.videoPlayers.play(this.project.entrypointId, true, isMobile);
     }
   }
 
-  public playVideo(videoId: string, ifMobile: boolean) {
-    this.videoPlayers.play(videoId, false, ifMobile);
+  public playVideo(videoId: string, isMobile: boolean) {
+    this.videoPlayers.play(videoId, false, isMobile);
   }
 
 }

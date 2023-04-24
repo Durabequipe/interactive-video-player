@@ -33,13 +33,16 @@ const style = `
   text-align: center;
 }
 
-#popup__wrapper .buttons {
-  display: flex;
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  background:white;
   width: 100%;
   height: 100%;
 }
 
-#popup__wrapper button {
+button {
   display: flex;
   width: 100%;
   text-align: center;
@@ -47,48 +50,51 @@ const style = `
   align-items: center;
 }
 
-#popup__wrapper label {
-  font-family: 'Mplus 1p', sans-serif;
+label {
+  font-family: 'M plus 1p', sans-serif;
   color: white;
-  border-right: 5px solid white;
   display: flex;
-  width: 100%;
   text-align: center;
+  flex-grow: 1;
   justify-content: center;
   align-items: center;
-  height: 100%; 
   background: #101010;
+  cursor:pointer;
 }
 
-// #popup__wrapper label:hover {
-//   background: red;
-// }
 
-#popup__wrapper label div {
+label:hover {
+  background: var(--shammas-primary-color);
+}
+
+label div {
   text-align:center;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 150%;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.011em;
+  order: 0;
+  padding: 2rem;
 }
 
-#popup__wrapper label:has(input:checked) {
-  // background: red;
+label:has(input:checked) {
   opacity: 1;
 }
 
-#popup__wrapper input {
+input {
   display:none;
 }
 
-@media (max-width: 600px) {
+@media screen and (max-width: 800px) {
 
-  #popup__wrapper label {
-
-    border-bottom: 5px solid white;
-  }
-  
-  .popup__div .buttons {
-    flex-direction: column;
-    font-size: 200%;
+  #popup__wrapper .buttons {
+    grid-template-columns: 1fr;
   }
 }
+
 
 /* ==========================================================================
 **  2. UILITY 
@@ -102,5 +108,5 @@ const style = `
   top: 0 !important;
 }
 `
-  const minifyCss = minify(style);
-  export default minifyCss;
+  // const minifyCss = minify(style);
+  export default style;

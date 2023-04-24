@@ -235,7 +235,7 @@ export class Video extends HTMLElement {
           ? next
           : currentVideo.interactions[String(randomInt(min, max))].id;
         this.switchCurrentVideoTag();
-        this.play(nextVideoIndex);
+        this.play(nextVideoIndex,false, this.player.isMobile);
         this.switchVideoTag();
       }
       this.popup.togglePopup();

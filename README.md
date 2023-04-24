@@ -45,7 +45,7 @@ Then include it in your html using the `shammas-player` custom element tag
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script defer type="module" src="index.ts"></script>
 </head>
 <body>
@@ -53,6 +53,12 @@ Then include it in your html using the `shammas-player` custom element tag
   <shammas-player></shammas-player>
 </body>
 </html>
+```
+
+It is important to use the following meta tag in your html document to make `@media query` work as expected
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
 
 To configure your player you need to call the method `initProject` with a valid project from `Project` type as argument

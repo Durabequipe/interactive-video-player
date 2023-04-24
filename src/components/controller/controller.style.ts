@@ -1,5 +1,4 @@
 import { minify } from "../../utils/helpers";
-import { Player } from "../player/Player";
 
 const style = `
 
@@ -15,9 +14,10 @@ video::-webkit-media-controls {
   left: 0;
   width: 100%;
   z-index: 2;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.15s ease-in-out;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 16fr 1fr 1fr;
   align-items: center;
   justify-content: center;
 }
@@ -75,16 +75,6 @@ button {
   border: none;
 }
 
-svg{
-  fill: white;
-  height: 2.5vh;
-  color: white;
-}
-
-.icon {
-}
-
-
 @media (orientation: portrait) {
 
   .controller__wrapper {
@@ -129,6 +119,8 @@ svg{
     height: 2vh;
     bottom: 2vw;
     visibility: visible;
+    display:flex;
+    width: calc(100% - 60px);
   }
 
   input[type=range] {
@@ -157,5 +149,4 @@ svg{
   }
 }
 `
-  const minifyCss = minify(style);
-  export default minifyCss;
+  export default style;
