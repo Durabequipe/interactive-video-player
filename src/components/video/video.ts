@@ -81,14 +81,14 @@ export class Video extends HTMLElement {
     this.player = player;
   }
 
-  async play(id: string, firstPlay = false, ifMobile: boolean) {
+  async play(id: string, firstPlay = false, isMobile: boolean) {
     const currentVideo: VideoNode = this.videos.get(id);
 
     const isLastSequence = currentVideo?.interactions ? false : true;
 
     const source = this.getCurrentVideoTag().querySelector(S.VIDEO_SOURCE);
 
-    this.isMobileIndex = ifMobile;
+    this.isMobileIndex = isMobile;
     const index = Number(this.isMobileIndex);
     source.src = currentVideo.paths[index] || currentVideo.paths[0];
 
@@ -241,13 +241,13 @@ export class Video extends HTMLElement {
           ? next
           : currentVideo.interactions[String(randomInt(min, max))].id;
         this.switchCurrentVideoTag();
-        this.play(nextVideoIndex,false, this.player.isMobile);
+        this.play(nextVideoIndex, false, this.isMobileIndex);
         this.switchVideoTag();
         this.controller.toggleButton.querySelector("img").src = "https://api.iconify.design/material-symbols/pause-rounded.svg?color=white&height=30";
         this.controller.toggleButton.querySelector("img").alt = "pause";
 
-      }
       this.popup.togglePopup();
+      }
     };
   }
 

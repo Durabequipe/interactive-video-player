@@ -9,7 +9,6 @@ export class Player extends HTMLElement {
   private shadow: ShadowRoot;
   private videoPlayers: Video;
   public sddColor: string;
-  public isMobile: boolean;
 
   constructor() {
     super();
@@ -36,7 +35,6 @@ export class Player extends HTMLElement {
   // ==========================================================================
 
   initProject(project: Project, isMobile: boolean, sddColor: string, firstVideoId?: string) {
-    this.isMobile = isMobile;
     this.project = project;
     this.sddColor = sddColor;
     this.videoPlayers.init(project,this);
