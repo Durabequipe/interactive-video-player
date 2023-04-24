@@ -19,6 +19,7 @@ export class Video extends HTMLElement {
   private popup: Popup;
   private controller: Controller;
   public player: Player;
+  private isMobileIndex: boolean;
 
   constructor() {
     super();
@@ -80,14 +81,15 @@ export class Video extends HTMLElement {
     this.player = player;
   }
 
-  async play(id: string, firstPlay = false, pathIndex = false) {
+  async play(id: string, firstPlay = false, ifMobile: boolean) {
     const currentVideo: VideoNode = this.videos.get(id);
 
     const isLastSequence = currentVideo?.interactions ? false : true;
 
     const source = this.getCurrentVideoTag().querySelector(S.VIDEO_SOURCE);
 
-    const index = Number(pathIndex)
+    this.isMobileIndex = ifMobile;
+    const index = Number(this.isMobileIndex);
     source.src = currentVideo.paths[index] || currentVideo.paths[0];
 
     this.getCurrentVideoTag().load();
@@ -235,7 +237,7 @@ export class Video extends HTMLElement {
           ? next
           : currentVideo.interactions[String(randomInt(min, max))].id;
         this.switchCurrentVideoTag();
-        this.play(nextVideoIndex);
+        this.play(nextVideoIndex, false, this.isMobileIndex);
         this.switchVideoTag();
       }
       this.popup.togglePopup();
