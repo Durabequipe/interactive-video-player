@@ -81,9 +81,7 @@ export class Popup extends HTMLElement {
     buttonInput.value = interaction.id;
     button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
 
-
     const label = button.querySelector(S.BUTTON_CONTENT).parentElement;
-    // console.log(this.themeColor)
     
     label.addEventListener('click', () => {
       label.style.backgroundColor = this.videoTag.player.sddColor;
@@ -102,13 +100,6 @@ export class Popup extends HTMLElement {
       }
     });
 
-    
-    // const checkedLabels = document.querySelectorAll('#popup__wrapper label:has(input:checked)');
-    // checkedLabels.forEach(label => {
-    //   // label.style.background = 'red';
-    //   // label.style.opacity = '1';
-    // });
-
     button.querySelector('label').addEventListener("mousedown", (e) => {
       e.stopPropagation()
       if(buttonInput.value != this.historicVideos[this.historicVideos.length - 1]){
@@ -120,7 +111,6 @@ export class Popup extends HTMLElement {
   }
 
   public getHistoricVideos(): Array<any> {
-    console.log(this.historicVideos)
     return this.historicVideos;
   }
 }

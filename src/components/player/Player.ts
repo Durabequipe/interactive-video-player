@@ -44,11 +44,6 @@ export class Player extends HTMLElement {
       this.videoPlayers.play(this.project.entrypointId, true, ifMobile);
     }
   }
-
-  public playVideo(videoId: string, ifMobile: boolean) {
-    this.videoPlayers.play(videoId, false, ifMobile);
-  }
-
 }
 
 customElements.define(N.PLAYER, Player);
