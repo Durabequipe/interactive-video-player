@@ -6,9 +6,8 @@ import { COMPONENT_NAME as N } from "../../utils/helpers";
 
 export class Player extends HTMLElement {
   private project: Project;
-  private shadow: ShadowRoot;
   private videoPlayers: Video;
-  public sddColor: string;
+  private shadow: ShadowRoot;
 
   constructor() {
     super();
@@ -34,9 +33,8 @@ export class Player extends HTMLElement {
   //  1. EXPOSED METHOD
   // ==========================================================================
 
-  initProject(project: Project, isMobile: boolean, sddColor: string, firstVideoId?: string) {
+  initProject(project: Project, isMobile: boolean, firstVideoId?: string) {
     this.project = project;
-    this.sddColor = sddColor;
     this.videoPlayers.init(project,this);
     if(firstVideoId){
       this.videoPlayers.play(firstVideoId, true, isMobile);

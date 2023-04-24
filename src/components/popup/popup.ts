@@ -81,25 +81,6 @@ export class Popup extends HTMLElement {
     buttonInput.value = interaction.id;
     button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
 
-    const label = button.querySelector(S.BUTTON_CONTENT).parentElement;
-    
-    label.addEventListener('click', () => {
-      label.style.backgroundColor = this.videoTag.player.sddColor;
-      label.classList.add('clicked');
-    });
-    
-    label.addEventListener('mouseenter', () => {
-      if (label.classList.value != 'clicked') {
-        label.style.backgroundColor = this.videoTag.player.sddColor;
-      }
-    });
-    
-    label.addEventListener('mouseout', () => {
-      if(label.classList.value != 'clicked') {
-        label.style.backgroundColor = '';
-      }
-    });
-
     button.querySelector('label').addEventListener("mousedown", (e) => {
       e.stopPropagation()
       if(buttonInput.value != this.historicVideos[this.historicVideos.length - 1]){
