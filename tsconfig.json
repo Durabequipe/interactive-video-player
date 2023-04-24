@@ -5,6 +5,7 @@
         "outDir": "./dist",
         "allowJs": true,
         "checkJs": true,
+        "types": ["node"],
         "moduleResolution": "node",
         "sourceMap": true,
         "removeComments": true,
