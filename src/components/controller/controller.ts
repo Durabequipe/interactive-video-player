@@ -60,16 +60,16 @@ export class Controller extends HTMLElement {
     });
 
     this.progressBar = this.shadow.querySelector(S.PROGRESS_BAR);
+    this.progressBar.addEventListener('click', (e) => {
+      e.stopPropagation();
+    })
     this.progressBar.addEventListener("input", () => {
-      try {
       const tag = this.videoTags[this.currentVideoTagIndex];
       const time = tag.duration * (parseInt(this.progressBar.value) / 100);
-      tag.currentTime = time;
-      } catch (error) {
-      const tag = this.videoTags[this.currentVideoTagIndex];
-      const time = tag.duration * (parseInt(this.progressBar.value) / 100);
-       console.log(tag.duration, this.progressBar.value) 
-       // console.log(error,time) 
+      if (time === tag.duration) {
+        // la position actuelle correspond à la durée totale, ne rien faire
+      } else {
+        tag.currentTime = time;
       }
     });
 
@@ -116,6 +116,8 @@ export class Controller extends HTMLElement {
       controller.classList.remove("visible");
     }
   }
+
+  private
 
   setCurrentVideoTagIndex(index: number) {
     this.currentVideoTagIndex = index;
