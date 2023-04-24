@@ -8,9 +8,8 @@ export class Controller extends HTMLElement {
   private currentVideoTagIndex = 0;
   private videoTags: NodeListOf<HTMLVideoElement>;
   private shadow: ShadowRoot;
-  private toggleButton: HTMLButtonElement;
+  public toggleButton: HTMLButtonElement;
   private volumeButton: HTMLButtonElement;
-  private volumeInput: HTMLInputElement;
   private progressBar: HTMLInputElement;
   private hideTimeout: NodeJS.Timeout;
 
