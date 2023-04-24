@@ -66,9 +66,7 @@ export class Controller extends HTMLElement {
     this.progressBar.addEventListener("input", () => {
       const tag = this.videoTags[this.currentVideoTagIndex];
       const time = tag.duration * (parseInt(this.progressBar.value) / 100);
-      if (time === tag.duration) {
-        // la position actuelle correspond à la durée totale, ne rien faire
-      } else {
+      if (time != tag.duration) {
         tag.currentTime = time;
       }
     });
