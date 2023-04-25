@@ -7,7 +7,7 @@ import { Video } from "../video/video";
 export class Popup extends HTMLElement {
   public shadow: ShadowRoot;
   private templateClone: HTMLTemplateElement;
-  private popupWrapper: HTMLDivElement;
+  public popupWrapper: HTMLDivElement;
   private videoTag: Video;
 
   constructor() {

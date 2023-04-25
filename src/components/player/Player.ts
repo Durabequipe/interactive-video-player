@@ -3,7 +3,7 @@ import template from "./player.template";
 import globalStyle from "../../utils/globalStyle";
 import { Video } from "../video/video";
 import { COMPONENT_NAME as N } from "../../utils/helpers";
-import { Icons, Selectors as S, VideoEvent } from "../../models/player";
+import { Icons, Selectors as S } from "../../models/player";
 import { Controller } from "../controller/controller";
 
 export class Player extends HTMLElement {
@@ -55,7 +55,6 @@ export class Player extends HTMLElement {
   togglePlay() {
     const videoTag = this.videoPlayers.getCurrentVideoTag();
     if (videoTag) {
-
       if (videoTag.paused) {
         this.controller.toggleButton.querySelector(S.ICON).src = Icons.PAUSE;
         this.controller.toggleButton.querySelector(S.ICON).alt = "pause";

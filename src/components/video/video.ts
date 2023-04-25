@@ -1,6 +1,6 @@
 import { Project, VideoNode } from "../../models/project";
 import { PlayerEvents } from "../../models/events";
-import { Selectors as S, VideoEvent,Icons } from "../../models/player";
+import { Selectors as S, VideoEvent, Icons } from "../../models/player";
 import {
   randomInt,
   videoToMap,
@@ -133,18 +133,14 @@ export class Video extends HTMLElement {
     );
 
     if (eventStartTime > 0) {
-      const timerEvent = this.getTimerListener();
-
       this.addEvent(
         VideoEvent.TIMEUPDATE,
-        this.getTimeUpdateListener(eventStartTime, currentVideo, timerEvent)
+        this.getTimeUpdateListener(eventStartTime, currentVideo)
       );
 
-      this.addEvent(
-        VideoEvent.ENDED,
-        this.getEndVideoListener(currentVideo, timerEvent),
-        { once: true }
-      );
+      this.addEvent(VideoEvent.ENDED, this.getEndVideoListener(currentVideo), {
+        once: true,
+      });
     }
 
     let pauseEventTriggered = false;
@@ -159,7 +155,8 @@ export class Video extends HTMLElement {
           this.controller.toggleButton.querySelector(S.ICON).alt = "play";
 
           this.getCurrentVideoTag().pause();
-          this.getCurrentVideoTag().currentTime = this.getCurrentVideoTag().duration - 0.01;
+          this.getCurrentVideoTag().currentTime =
+            this.getCurrentVideoTag().duration - 0.01;
           pauseEventTriggered = true;
         }
       }
@@ -177,22 +174,29 @@ export class Video extends HTMLElement {
 
   private getTimeUpdateListener(
     eventStartTime: number,
-    currentVideo: VideoNode,
-    timerEvent: (e: any) => void
+    currentVideo: VideoNode
   ) {
     const fn = (e: any) => {
       if (e.target.currentTime >= eventStartTime) {
-        this.popup.buildPopup(currentVideo);
-
-        this.addEvent(VideoEvent.TIMEUPDATE, timerEvent);
-        this.removeEvent(VideoEvent.TIMEUPDATE, fn);
-
-        const isLastSequence = currentVideo?.interactions ? false : true;
-        setTimeout(() => {
-          if (!isLastSequence) {
+        if (currentVideo?.interactions?.length == 1) {
+          this.popup.buildPopup(currentVideo);
+          this.removeEvent(VideoEvent.TIMEUPDATE, fn);
+          setTimeout(() => {
             this.popup.togglePopup();
-          }
-        }, 100);
+            this.popup.shadow.querySelector("input").click();
+          }, 100);
+        } else {
+          this.popup.buildPopup(currentVideo);
+
+          this.removeEvent(VideoEvent.TIMEUPDATE, fn);
+
+          const isLastSequence = currentVideo?.interactions ? false : true;
+          setTimeout(() => {
+            if (!isLastSequence) {
+              this.popup.togglePopup();
+            }
+          }, 100);
+        }
       }
     };
     return fn;
@@ -217,12 +221,8 @@ export class Video extends HTMLElement {
     };
   }
 
-  private getEndVideoListener(
-    currentVideo: VideoNode,
-    timerEvent: (e: any) => void
-  ) {
+  private getEndVideoListener(currentVideo: VideoNode) {
     return () => {
-      this.removeEvent(VideoEvent.TIMEUPDATE, timerEvent);
       const max = currentVideo?.interactions?.length - 1 ?? 0;
       const min = 0;
       if (max >= 0) {
