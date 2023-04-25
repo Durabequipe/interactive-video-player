@@ -159,6 +159,7 @@ export class Video extends HTMLElement {
           this.controller.toggleButton.querySelector(S.ICON).alt = "play";
 
           this.getCurrentVideoTag().pause();
+          this.getCurrentVideoTag().currentTime = this.getCurrentVideoTag().duration - 0.01;
           pauseEventTriggered = true;
         }
       }
