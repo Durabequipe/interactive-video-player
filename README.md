@@ -112,7 +112,13 @@ if (player != null) {
 }
 ```
 
-## Events
+ License
+
+Include information about the license under which the project is released and any relevant copyright information.
+
+## Documentation
+
+### Events
 
 `shammas-video-end`: Fired when the last video sequence just finished playing
 
@@ -121,6 +127,7 @@ if (player != null) {
 This events emits The current video of type `VideoNode` available on property `detail`
 
 __Exemple__
+
 ```typescript
 const player: PlayerElement | null = document.querySelector("shammas-player");
 if (player != null) {
@@ -131,6 +138,58 @@ if (player != null) {
   player.initProject(project);
 }
 ```
+
 ⚠️  It is important to set the eventListener before calling `player.initProject()` otherwise, the first video sequence won't be taken into account.
 
+`shammas-lastSequenceReached`: Fired when the last video of the sequence start playing.
 
+### Player
+
+`Selectors`: defines CSS selectors that are used in the player.
+
+`VideoEvent`: defines strings that represent the different types of events that can be triggered when interacting with a video element.
+
+`MouseEvents`: defines strings that represent the different types of mouse events that can be triggered.
+
+`ProgressBarEvents`: defines a single event type `INPUT` that can be triggered when interacting with the progress bar element.
+
+`Icons`: defines URLs for different icons used in the UI, and they come from an icon library.
+
+#### Methods
+
+The `initProject` method takes a `Project` object, a boolean value indicating whether the player is running on a mobile device (`isMobile`), and an optional `firstVideoId` parameter. This method initializes the `project` property and calls the `init` method on the `videoPlayers` object, passing in the `project` and the `Player` object. If a `firstVideoId` is provided, the player will start playing that video; otherwise, it will start playing the entrypoint video specified in the `project` object.
+
+The `playVideo` method takes a `videoId` string and a boolean indicating whether the player is running on a mobile device (`isMobile`). This method calls the `play`method on the`videoPlayers`object, passing in the`videoId`, `false`, and `isMobile` parameters.
+
+The `togglePlay` method toggles the play/pause state of the currently playing video and updates the `controller` button play icon accordingly.
+
+### Project
+
+`Interaction`: represents an interaction that can be associated with a video node. It has two properties: `content`, which is a string representing the content of the interaction, and `id`, which is a unique string identifier for the interaction.
+
+`VideoNode`: represents a node in a video graph. It has three properties:
+
+- `id`, which is a unique string identifier for the node,
+- `name`, which is a string representing the name of the node
+- `paths`, which is an array of two strings and the first one is used for stocking the source of the video landscape format, and the seconde one is for the mobile format .
+- Additionally, it can have an optional `interactions` property, which is an array of `Interaction` objects associated with the node.
+
+`Project`: represents a project involving multiple video nodes. It has three properties: `id`, which is a unique string identifier for the project, `entrypointId`, which is a string representing the ID of the entrypoint node for the project, and `videos`, which is an array of `VideoNode` objects representing the nodes in the video graph.
+
+## Examples
+
+A quick view of what the player looks like:
+
+![1682426760029](image/README/1682426760029.png)
+
+It's a basic player where the user can
+
+- stop/play the video;
+- mute/unmute the video;
+- move forward and backward in the video.
+
+A quick view of what the interactions look like (they appear in the form of a popup):
+
+![1682426845170](image/README/1682426845170.png)
+
+When the user cliks in one of the options, it defines wich video plays next.
