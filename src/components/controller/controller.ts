@@ -13,9 +13,9 @@ import { KeydownHandler } from "../../utils/KeydownHandler";
 export class Controller extends HTMLElement {
   private currentVideoTagIndex = 0;
   private videoTags: NodeListOf<HTMLVideoElement>;
-  private shadow: ShadowRoot;
+  public shadow: ShadowRoot;
   public toggleButton: HTMLButtonElement;
-  private volumeButton: HTMLButtonElement;
+  public volumeButton: HTMLButtonElement;
   private progressBar: HTMLInputElement;
   private hideTimeout: NodeJS.Timeout;
 
@@ -45,12 +45,15 @@ export class Controller extends HTMLElement {
     this.volumeButton = this.shadow.querySelector(S.VOLUME);
     this.volumeButton.addEventListener(MouseEvents.CLICK, () => {
       const tag = this.videoTags[this.currentVideoTagIndex];
+
       if (tag.muted) {
-        tag.muted = false;
+        this.videoTags[0].muted = false;
+        this.videoTags[1].muted = false;
         this.volumeButton.querySelector(S.ICON).src = Icons.VOLUME_UP;
         this.volumeButton.querySelector(S.ICON).alt = "unmuted";
       } else {
-        tag.muted = true;
+        this.videoTags[0].muted = true;
+        this.videoTags[1].muted = true;
         this.volumeButton.querySelector(S.ICON).src = Icons.VOLUME_MUTE;
         this.volumeButton.querySelector(S.ICON).alt = "muted";
       }

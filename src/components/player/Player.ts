@@ -3,18 +3,22 @@ import template from "./player.template";
 import globalStyle from "../../utils/globalStyle";
 import { Video } from "../video/video";
 import { COMPONENT_NAME as N } from "../../utils/helpers";
-import { VideoEvent } from "../../models/player";
+import { Icons, Selectors as S, VideoEvent } from "../../models/player";
+import { Controller } from "../controller/controller";
 
 export class Player extends HTMLElement {
   private project: Project;
   private videoPlayers: Video;
   private shadow: ShadowRoot;
+  private controller: Controller;
 
   constructor() {
     super();
     const shadow = this.attachShadow({ mode: "open" });
     shadow.append(template.content.cloneNode(true));
     this.shadow = shadow;
+
+    this.controller = this.selector(N.CONTROLLER) as Controller;
 
     const style = document.createElement("style");
     style.innerText = globalStyle;
@@ -51,6 +55,14 @@ export class Player extends HTMLElement {
   togglePlay() {
     const videoTag = this.videoPlayers.getCurrentVideoTag();
     if (videoTag) {
+
+      if (videoTag.paused) {
+        this.controller.toggleButton.querySelector(S.ICON).src = Icons.PAUSE;
+        this.controller.toggleButton.querySelector(S.ICON).alt = "pause";
+      } else {
+        this.controller.toggleButton.querySelector(S.ICON).src = Icons.PLAY;
+        this.controller.toggleButton.querySelector(S.ICON).alt = "play";
+      }
       videoTag.paused ? videoTag.play() : videoTag.pause();
     }
   }
