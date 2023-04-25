@@ -226,7 +226,7 @@ It's a player where the user can
 A quick view of what the interactions
 
 ```json
-...
+//...
 
 "interactions": [
 	{
@@ -246,7 +246,7 @@ A quick view of what the interactions
 		"content": "choice #4"
 	}
 
-...
+//...
 ```
 
 look like (they appear in the form of a popup):
