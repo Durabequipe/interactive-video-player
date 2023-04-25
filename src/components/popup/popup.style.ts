@@ -44,10 +44,6 @@ button {
   align-items: center;
 }
 
-.fake-button {
-  pointer-events:none;
-}
-
 label {
   font-family: 'M plus 1p', sans-serif;
   color: white;

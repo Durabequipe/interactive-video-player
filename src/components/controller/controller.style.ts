@@ -43,6 +43,7 @@ input[type=range] {
 }
 
 input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
   width: 15px;
   height: 15px;
   border-radius: 50%;
@@ -51,6 +52,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
   width: 15px;
   height: 15px;
   border-radius: 50%;
