@@ -223,7 +223,30 @@ It's a player where the user can
 - mute/unmute the video;
 - move forward and backward in the current video.
 
-A quick view of what the interactions look like (they appear in the form of a popup):
+A quick view of what the interactions
+
+```json
+...
+
+"interactions": [
+	{
+		"id": "9901ab5f-d971-4f8c-8daa-0e0e24b3a2ab",
+		"content": "Politique"
+	},
+	{
+		"id": "9900d2b5-f0fd-4011-9cce-966dc23613ea",
+		"content": "Tâche domestique"
+	},
+	{
+		"id": "9903a96c-7ddb-4790-82f6-335506f6fc6d",
+		"content": "Les femmes et études techniques"
+	}
+]
+
+...
+```
+
+look like (they appear in the form of a popup):
 
 ![1682426845170](image/README/1682426845170.png)
 
