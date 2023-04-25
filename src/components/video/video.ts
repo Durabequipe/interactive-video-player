@@ -179,12 +179,17 @@ export class Video extends HTMLElement {
     const fn = (e: any) => {
       if (e.target.currentTime >= eventStartTime) {
         if (currentVideo?.interactions?.length == 1) {
-          this.popup.buildPopup(currentVideo);
+          this.popup.popupWrapper.style.display = "none";
           this.removeEvent(VideoEvent.TIMEUPDATE, fn);
+
           setTimeout(() => {
+            this.popup.buildPopup(currentVideo);
             this.popup.togglePopup();
             this.popup.shadow.querySelector("input").click();
           }, 100);
+          setTimeout(() => {
+            this.popup.popupWrapper.style.display = "flex";
+          }, 1100);
         } else {
           this.popup.buildPopup(currentVideo);
 

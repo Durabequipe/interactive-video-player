@@ -94,5 +94,9 @@ input {
 .BOTTOM {
   top: 0 !important;
 }
+
+.invisible {
+  opacity: 0;
+}
 `
 export default style;
