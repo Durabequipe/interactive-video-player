@@ -5,7 +5,6 @@
   - [Description](#description)
   - [Installation](#installation)
   - [Usage Exemple](#usage-exemple)
-  - [Licence](#licence)
   - [Documentation](#ducumentation)
     - [Events](#events)
     - [Player](#player)
@@ -16,6 +15,8 @@
   - [Examples](#examples)
 
 # Interactive-video-player
+
+This project is licensed under [ISC](https://en.wikipedia.org/wiki/ISC_license).
 
 ## Description
 
@@ -120,10 +121,6 @@ if (player != null) {
 }
 ```
 
-## License
-
-Include information about the license under which the project is released and any relevant copyright information.
-
 ## Documentation
 
 ### Events
@@ -220,11 +217,11 @@ A quick view of what the player looks like:
 
 ![1682426760029](image/README/1682426760029.png)
 
-It's a basic player where the user can
+It's a player where the user can
 
 - stop/play the video;
 - mute/unmute the video;
-- move forward and backward in the video.
+- move forward and backward in the current video.
 
 A quick view of what the interactions look like (they appear in the form of a popup):
 
