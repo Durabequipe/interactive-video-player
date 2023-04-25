@@ -230,24 +230,27 @@ A quick view of what the interactions
 
 "interactions": [
 	{
-		"id": "9901ab5f-d971-4f8c-8daa-0e0e24b3a2ab",
-		"content": "Politique"
+		"id": "id-choice-1",
+		"content": "choice #1"
 	},
 	{
-		"id": "9900d2b5-f0fd-4011-9cce-966dc23613ea",
-		"content": "Tâche domestique"
+		"id": "id-choice-2",
+		"content": "choice #2"
 	},
 	{
-		"id": "9903a96c-7ddb-4790-82f6-335506f6fc6d",
-		"content": "Les femmes et études techniques"
+		"id": "id-choice-3",
+		"content": "choice #3"
+	},
+	{
+		"id": "id-choice-4",
+		"content": "choice #4"
 	}
-]
 
 ...
 ```
 
 look like (they appear in the form of a popup):
 
-![1682426845170](image/README/1682426845170.png)
+![1682431711039](image/README/1682431711039.png)
 
 When the user cliks in one of the options, it defines wich video plays next.
