@@ -8,7 +8,6 @@ import {
 } from "../../models/player";
 import { Video } from "../video/video";
 import { COMPONENT_NAME as N } from "../../utils/helpers";
-import { KeydownHandler } from "../../utils/KeydownHandler";
 
 export class Controller extends HTMLElement {
   private currentVideoTagIndex = 0;
