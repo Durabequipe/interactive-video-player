@@ -1,6 +1,6 @@
 {
   "name": "@shammas44/interactive-video-player",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "",
   "entry point": "dist/main.js",
   "main": "dist/main.js",

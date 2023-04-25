@@ -45,14 +45,17 @@ export class Popup extends HTMLElement {
 
   togglePopup() {
     this.selector(S.POPUP_DIV).classList.toggle(S.BOTTOM.replace(".", ""));
-    const buttonSel = this.shadow.querySelector(S.POPUP_BUTTONS);
-    buttonSel.addEventListener(
-      MouseEvents.CLICK,
-      () => {
-        this.videoTag.getCurrentVideoTag().play();
-      },
-      { once: true }
-    );
+    const buttonSel = this.shadow.querySelectorAll(`${S.POPUP_BUTTONS} label.button`);
+    console.log(buttonSel)
+    buttonSel.forEach((b) => {
+      b.addEventListener(
+        MouseEvents.CLICK,
+        () => {
+          this.videoTag.getCurrentVideoTag().play();
+        },
+        { once: true }
+      );
+    });
   }
 
   // ==========================================================================
@@ -63,10 +66,26 @@ export class Popup extends HTMLElement {
     interactions: Interaction[],
     buttonsWrapper: HTMLElement
   ) {
+    const isEven = interactions.length - (1 % 2) == 0;
     interactions?.forEach((interaction) => {
       const button = this.createButton(interaction);
       buttonsWrapper.append(button);
     });
+    if (!isEven && window.innerWidth > 800) {
+      const button = this.createFakeButton();
+      buttonsWrapper.append(button);
+    }
+  }
+
+  private createFakeButton() {
+    const buttonTmp = this.templateClone.content.querySelector(
+      S.BUTTON_TMP
+    ) as HTMLTemplateElement;
+    buttonTmp.classList.add("fake-button");
+    const button = buttonTmp.content.cloneNode(true) as HTMLElement;
+    button.querySelector(S.BUTTON_CONTENT).innerHTML = "";
+
+    return button;
   }
 
   private createButton(interaction: Interaction) {
@@ -75,6 +94,7 @@ export class Popup extends HTMLElement {
     ) as HTMLTemplateElement;
     const button = buttonTmp.content.cloneNode(true) as HTMLElement;
     button.querySelector(S.BUTTON_INPUT).value = interaction.id;
+    button.querySelector(S.POPUP_BUTTON).classList.add('button')
     button.querySelector(S.BUTTON_CONTENT).innerHTML = interaction.content;
 
     const buttonInput = button.querySelector(
